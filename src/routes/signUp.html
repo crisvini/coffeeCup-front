@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <!-- css -->
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/css/styles.css">
+    <!-- js -->
+    <script src="https://kit.fontawesome.com/60656bf09a.js" crossorigin="anonymous"></script>
+    <script src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script src="../node_modules/vanilla-masker/build/vanilla-masker.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/functions.js"></script>
+
+    <link rel="icon" type="image/x-icon" href="../public/assets/favicon.ico">
+    <title>coffee cup > Sign up</title>
+</head>
+
+<body class="background-quaternary vh-100">
+    <header class="container-fluid m-0 mw-100">
+        <div class="row">
+            <div class="background-secondary p-2 col-12 mx-auto text-left fs-4 color-primary fixed-top">
+                <div class="row">
+                    <div class="col-11 col-lg-10 mx-auto">
+                        <span onclick="window.location.href = './index.html';" class="pointer">
+                            <img src="../public/assets/logo.png" style="width: 5vh;">&nbsp;<span
+                                class="color-primary align-middle fs-3">coffee
+                                cup</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container h-100 m-0 mw-100">
+        <div class="row h-100">
+            <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center background-quaternary">
+                <div class="row">
+                    <div class="col-11 col-lg-8 mx-auto text-left fs-5 color-primary mt-lg-4">
+                        <span onclick="window.location.href = './index.html';"
+                            class="pointer tertiary-logo-hover-color"><i
+                                class="fa-solid fa-arrow-left"></i>&nbsp;Login</span>
+                    </div>
+                    <div class="col-11 col-lg-8 mx-auto text-left fs-4 color-primary mt-lg-4 mt-2">
+                        <span>Sign up</span>
+                    </div>
+                    <div class="col-11 col-lg-8 mx-auto mt-3">
+                        <input type="text" class="form-control background-secondary color-quaternary" id="name"
+                            placeholder="Name" oninput="fillingAlert('#name');">
+                    </div>
+                    <div class="col-11 col-lg-8 mx-auto mt-3">
+                        <input type="text" class="form-control background-secondary color-quaternary" id="last_name"
+                            placeholder="Last name" oninput="fillingAlert('#last_name');">
+                    </div>
+                    <div class="col-11 col-lg-8 mx-auto mt-3">
+                        <input type="text" class="form-control background-secondary color-quaternary" id="username"
+                            placeholder="Username" oninput="fillingAlert('#username');">
+                    </div>
+                    <div class="col-11 col-lg-8 mx-auto mt-3">
+                        <input type="text" class="form-control background-secondary color-quaternary" id="birth_date"
+                            placeholder="Birth date (yyyy/mm/dd)" oninput="fillingAlert('#birth_date');">
+                    </div>
+                    <div class="col-11 col-lg-8 mx-auto mt-3">
+                        <input type="email" class="form-control background-secondary color-quaternary" id="email"
+                            placeholder="E-mail" oninput="fillingAlert('#email');">
+                    </div>
+                    <div class="col-11 col-lg-8 mx-auto mt-3">
+                        <input type="password" class="form-control background-secondary color-quaternary" id="password"
+                            placeholder="Password" oninput="fillingAlert('#password');">
+                    </div>
+                    <div class="col-11 col-lg-8 mx-auto mt-3">
+                        <input type="password" class="form-control background-secondary color-quaternary"
+                            id="confirm_password" placeholder="Confirm password"
+                            oninput="fillingAlert('#confirm_password');">
+                    </div>
+                    <div class="col-11 col-lg-8 mx-auto mt-3">
+                        <button class="btn primary-logo-button-color w-100"
+                            onclick="window.location.href='./home.html'">Sign up</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 text-center d-none d-lg-block background-tertiary">
+                <img class="h-100 w-75" src="../public/assets/sign-up-banner.svg">
+            </div>
+        </div>
+    </main>
+
+    <script>
+        VMasker(document.querySelector("#birth_date")).maskPattern("9999/99/99");
+    </script>
+
+</body>
+
+</html>

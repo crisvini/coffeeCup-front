@@ -1,6 +1,11 @@
+import PageTitle from "../components/PageTitle"
+
 const Login = () => {
     return (
-        <div>Login</div>
+        <div>
+            <PageTitle title='Login' />
+            <h1>Login</h1>
+        </div>
     )
 }
 
