@@ -6,7 +6,8 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import Error from './routes/Error.jsx'
-import Login from './routes/Login.jsx'
+import SignIn from './routes/SignIn.jsx'
+import SignUp from './routes/SignUp.jsx'
 import Home from './routes/Home.jsx'
 import Discussion from './routes/Discussion.jsx'
 
@@ -18,7 +19,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Login />
+        element: <SignIn />
+      },
+      {
+        path: "signup",
+        element: <SignUp />
       },
       {
         path: "home",
