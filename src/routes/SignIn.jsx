@@ -1,15 +1,25 @@
-import PageTitle from "../components/PageTitle"
 import Logo from '../assets/logo.png'
 import PrimaryBanner from '../assets/primary-banner.svg'
-import { Link, Navigate, useNavigate } from "react-router-dom"
-import { useState, useEffect } from "react"
+
+import Swal from "sweetalert2"
+import withReactContent from "sweetalert2-react-content"
+
+import { Link, useNavigate } from "react-router-dom"
+import { useState, useContext } from "react"
+
+import { UserTokenContext } from "../context/UserTokenContext"
+
+import PageTitle from "../components/PageTitle"
 
 const Login = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
+    const { userToken, setUserToken } = useContext(UserTokenContext)
+
     const navigate = useNavigate()
+    const MySwal = withReactContent(Swal)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -26,7 +36,28 @@ const Login = () => {
             },
             body: JSON.stringify(login),
         })
-        const data = await response.text()
+
+        if (!response.ok) {
+            MySwal.fire({
+                title: 'Error',
+                text: 'Wrong email/password',
+                icon: 'warning',
+                buttonsStyling: false,
+                customClass: {
+                    confirmButton: 'btn primary-logo-button-color'
+                },
+                confirmButtonText: 'Ok'
+            })
+            return
+        } else {
+            console.log('deu')
+        }
+        const token = await response.text();
+
+        console.log(token)
+        setUserToken(token);
+
+        console.log(userToken);
 
         navigate('/home')
     }
