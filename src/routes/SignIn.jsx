@@ -1,13 +1,15 @@
 import PageTitle from "../components/PageTitle"
 import Logo from '../assets/logo.png'
 import PrimaryBanner from '../assets/primary-banner.svg'
-import { Link } from "react-router-dom"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 
 const Login = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -25,6 +27,8 @@ const Login = () => {
             body: JSON.stringify(login),
         })
         const data = await response.text()
+
+        navigate('/home')
     }
 
     return (
