@@ -5,9 +5,9 @@ import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
 
 import { Link, useNavigate } from "react-router-dom"
-import { useState, useContext } from "react"
+import { useState } from 'react'
 
-import { UserTokenContext } from "../context/UserTokenContext"
+// import useLogin from '../hooks/useLogin'
 
 import PageTitle from "../components/PageTitle"
 
@@ -15,8 +15,6 @@ const Login = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-
-    const { userToken, setUserToken } = useContext(UserTokenContext)
 
     const navigate = useNavigate()
     const MySwal = withReactContent(Swal)
@@ -49,15 +47,10 @@ const Login = () => {
                 confirmButtonText: 'Ok'
             })
             return
-        } else {
-            console.log('deu')
         }
+
         const token = await response.text();
-
-        console.log(token)
-        setUserToken(token);
-
-        console.log(userToken);
+        sessionStorage.setItem('login_token', token);
 
         navigate('/home')
     }
@@ -86,7 +79,6 @@ const Login = () => {
                                 </div>
                                 <div className="col-11 col-lg-8 mx-auto mt-3">
                                     <input type="submit" className="btn primary-logo-button-color w-100" value="Sign in" />
-                                    {/* <button className="btn primary-logo-button-color w-100">Sign in</button> */}
                                 </div>
                             </form>
                             <div className="col-11 col-lg-8 mx-auto text-center mt-3">

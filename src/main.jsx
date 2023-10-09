@@ -11,8 +11,6 @@ import SignUp from './routes/SignUp.jsx'
 import Home from './routes/Home.jsx'
 import Discussion from './routes/Discussion.jsx'
 
-import { UserTokenProvider } from './context/UserTokenContext.jsx'
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,9 +38,7 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <UserTokenProvider>
-    <React.StrictMode>
-      <RouterProvider router={router} />
-    </React.StrictMode>,
-  </UserTokenProvider>
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>,
 )
