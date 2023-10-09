@@ -7,9 +7,10 @@ import withReactContent from "sweetalert2-react-content"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from 'react'
 
-// import useLogin from '../hooks/useLogin'
+import useHttpRequest from '../hooks/useHttpRequest'
 
 import PageTitle from "../components/PageTitle"
+import LoadingOverlay from '../components/LoadingOverlay'
 
 const Login = () => {
 
@@ -19,40 +20,34 @@ const Login = () => {
     const navigate = useNavigate()
     const MySwal = withReactContent(Swal)
 
-    const handleSubmit = async (e) => {
+    const { loading, sendRequest } = useHttpRequest();
+
+    const handlePostRequest = (e) => {
         e.preventDefault()
 
-        const login = {
+        const requestBody = {
             email,
-            password
-        }
+            password,
+        };
+        sendRequest('POST', 'http://localhost/api/login', requestBody)
+            .then((responseData) => {
+                if (!responseData) {
+                    MySwal.fire({
+                        title: 'Error',
+                        text: 'Wrong email/password',
+                        icon: 'warning',
+                        buttonsStyling: false,
+                        customClass: {
+                            confirmButton: 'btn primary-logo-button-color'
+                        },
+                        confirmButtonText: 'Ok'
+                    })
+                    return
+                }
+                sessionStorage.setItem('login_token', responseData);
 
-        const response = await fetch('http://localhost/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(login),
-        })
-
-        if (!response.ok) {
-            MySwal.fire({
-                title: 'Error',
-                text: 'Wrong email/password',
-                icon: 'warning',
-                buttonsStyling: false,
-                customClass: {
-                    confirmButton: 'btn primary-logo-button-color'
-                },
-                confirmButtonText: 'Ok'
+                navigate('/home')
             })
-            return
-        }
-
-        const token = await response.text();
-        sessionStorage.setItem('login_token', token);
-
-        navigate('/home')
     }
 
     return (
@@ -68,7 +63,7 @@ const Login = () => {
                             <div className="col-11 col-lg-8 mx-auto text-center fs-4 color-primary mt-3">
                                 <span>coffee cup</span>
                             </div>
-                            <form onSubmit={handleSubmit}>
+                            <form onSubmit={handlePostRequest}>
                                 <div className="col-11 col-lg-8 mx-auto mt-3">
                                     <input type="email" className="form-control background-secondary color-quaternary" id="email"
                                         placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)}></input>
@@ -92,6 +87,7 @@ const Login = () => {
                     </div>
                 </div>
             </main>
+            <LoadingOverlay loading={loading} />
         </div>
     )
 }
