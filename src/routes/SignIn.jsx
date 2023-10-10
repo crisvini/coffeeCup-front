@@ -11,6 +11,7 @@ import useLogout from '../hooks/useLogout'
 
 import PageTitle from "../components/PageTitle"
 import LoadingOverlay from '../components/LoadingOverlay'
+import SideBanner from '../components/SideBanner'
 
 const signIn = () => {
 
@@ -87,9 +88,7 @@ const signIn = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-6 text-center d-none d-lg-block background-tertiary">
-                        <img className="h-100 w-75" src={PrimaryBanner} />
-                    </div>
+                    <SideBanner banner={PrimaryBanner} />
                 </div>
             </main>
             <LoadingOverlay loading={loading} />

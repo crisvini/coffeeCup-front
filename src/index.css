@@ -50,6 +50,11 @@ li {
   font-family: 'Ubuntu', sans-serif !important;
 }
 
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
 input:not([type="submit"]):focus,
 textarea:focus {
   outline: none !important;
@@ -165,6 +170,7 @@ input[type=submit]:active {
 .logo-link-color {
   color: var(--logoColor) !important;
   cursor: pointer !important;
+  text-decoration: none !important;
 }
 
 .logo-link-color:hover {
@@ -172,6 +178,19 @@ input[type=submit]:active {
   transition-delay: 0.1s !important;
   transition-duration: 0.1s !important;
   text-decoration: underline !important;
+}
+
+.primary-link-color {
+  color: var(--color-primary) !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+}
+
+.primary-link-color:hover {
+  color: var(--tertiaryLogoColor) !important;
+  transition-delay: 0.1s !important;
+  transition-duration: 0.1s !important;
+  text-decoration: none !important;
 }
 
 .color-primary {
