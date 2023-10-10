@@ -4,10 +4,11 @@ const useHttpRequest = () => {
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(false)
 
-    const sendRequest = async (method, url, body = null) => {
+    const sendRequest = async ({ method, url, body = null, auth = null }) => {
         setLoading(true)
         const headers = {
             'Content-Type': 'application/json',
+            'Authorization': auth ? ('Bearer ' + auth) : null
         }
 
         const config = {
@@ -33,7 +34,7 @@ const useHttpRequest = () => {
     return {
         data,
         loading,
-        sendRequest,
+        sendRequest
     }
 }
 

@@ -3,16 +3,16 @@ import PrimaryBanner from '../assets/primary-banner.svg'
 
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
-
 import { Link, useNavigate } from "react-router-dom"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import useHttpRequest from '../hooks/useHttpRequest'
+import useLogout from '../hooks/useLogout'
 
 import PageTitle from "../components/PageTitle"
 import LoadingOverlay from '../components/LoadingOverlay'
 
-const Login = () => {
+const signIn = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -20,7 +20,12 @@ const Login = () => {
     const navigate = useNavigate()
     const MySwal = withReactContent(Swal)
 
-    const { loading, sendRequest } = useHttpRequest();
+    const { loading, sendRequest } = useHttpRequest()
+    const { logout } = useLogout()
+
+    useEffect(() => {
+        if (sessionStorage.getItem('user_token')) logout()
+    }, [])
 
     const handlePostRequest = (e) => {
         e.preventDefault()
@@ -29,7 +34,7 @@ const Login = () => {
             email,
             password,
         };
-        sendRequest('POST', 'http://localhost/api/login', requestBody)
+        sendRequest({ method: 'POST', url: 'http://localhost/api/login', body: requestBody })
             .then((responseData) => {
                 if (!responseData) {
                     MySwal.fire({
@@ -44,7 +49,7 @@ const Login = () => {
                     })
                     return
                 }
-                sessionStorage.setItem('login_token', responseData);
+                sessionStorage.setItem('user_token', responseData);
 
                 navigate('/home')
             })
@@ -92,4 +97,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default signIn
