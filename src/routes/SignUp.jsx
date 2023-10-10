@@ -12,6 +12,7 @@ import useLogout from '../hooks/useLogout'
 import PageTitle from "../components/PageTitle"
 import LoadingOverlay from '../components/LoadingOverlay'
 import SideBanner from '../components/SideBanner'
+import BackLink from '../components/BackLink'
 
 const SignUp = () => {
 
@@ -65,7 +66,7 @@ const SignUp = () => {
                     <div className="background-secondary p-2 col-12 mx-auto text-left fs-4 color-primary fixed-top">
                         <div className="row">
                             <div className="col-11 col-lg-10 mx-auto">
-                                <Link to="/" className='primary-link-color'>
+                                <Link to='/' className='primary-link-color'>
                                     <img style={{ width: '5vh' }} src={Logo} />&nbsp;
                                     <span className="color-primary align-middle fs-3">coffee cup</span>
                                 </Link>
@@ -79,10 +80,7 @@ const SignUp = () => {
                 <div className="row h-100">
                     <div className="col-12 col-lg-6 d-flex justify-content-center align-items-center background-quaternary">
                         <div className="row">
-                            <div className="col-11 col-lg-8 mx-auto text-left fs-5 color-primary mt-lg-4 w-100">
-                                <Link to="/" className='tertiary-logo-hover-color'>
-                                    <i className="bi bi-arrow-left"></i>&nbsp;Login</Link>
-                            </div>
+                            <BackLink link='/' swalText='Do you really want to get back? You will lost unsaved data' linkText='Login' />
                             <div className="col-11 col-lg-8 mx-auto text-left fs-4 color-primary mt-lg-4 mt-2 w-100">
                                 <span>Sign up</span>
                             </div>

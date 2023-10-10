@@ -41,7 +41,7 @@ const SignIn = () => {
                     MySwal.fire({
                         title: 'Error',
                         text: 'Wrong email/password',
-                        icon: 'warning',
+                        icon: 'error',
                         buttonsStyling: false,
                         customClass: {
                             confirmButton: 'btn primary-logo-button-color'
