@@ -7,7 +7,8 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
 function App() {
   const location = useLocation()
-  if (location.pathname !== '/' && location.pathname !== '/signup' && !sessionStorage.getItem('user_token'))
+  const routesWithoutAuthentication = ['/', '/signup', '/signup/email-verification']
+  if (!routesWithoutAuthentication.includes(location.pathname) && !sessionStorage.getItem('user_token'))
     return <Navigate to="/" />
 
   return (

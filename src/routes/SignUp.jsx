@@ -4,7 +4,7 @@ import SignUpBanner from '../assets/sign-up-banner.svg'
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
 import { Link, useNavigate } from "react-router-dom"
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import useHttpRequest from '../hooks/useHttpRequest'
 
@@ -28,15 +28,17 @@ const SignUp = () => {
         e.preventDefault()
 
         const requestBody = {
+            name,
             email,
-            password,
+            password
         };
-        sendRequest({ method: 'POST', url: 'http://localhost/api/login', body: requestBody })
+        sendRequest({ method: 'POST', url: 'http://localhost/api/users/store', body: requestBody })
             .then((responseData) => {
+                console.log(responseData);
                 if (!responseData) {
                     MySwal.fire({
-                        title: 'Error',
-                        text: 'Wrong email/password',
+                        title: 'Ops..',
+                        text: 'E-mail already used, please try with another one',
                         icon: 'warning',
                         buttonsStyling: false,
                         customClass: {
@@ -46,9 +48,7 @@ const SignUp = () => {
                     })
                     return
                 }
-                sessionStorage.setItem('user_token', responseData);
-
-                navigate('/home')
+                navigate('/signup/email-verification')
             })
     }
 

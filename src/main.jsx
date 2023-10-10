@@ -10,6 +10,7 @@ import SignIn from './routes/SignIn.jsx'
 import SignUp from './routes/SignUp.jsx'
 import Home from './routes/Home.jsx'
 import Discussion from './routes/Discussion.jsx'
+import EmailVerification from './routes/EmailVerification.jsx'
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignUp />
+      },
+      {
+        path: "signup/email-verification",
+        element: <EmailVerification />
       },
       {
         path: "home",

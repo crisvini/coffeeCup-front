@@ -33,7 +33,7 @@ const SignIn = () => {
 
         const requestBody = {
             email,
-            password,
+            password
         };
         sendRequest({ method: 'POST', url: 'http://localhost/api/login', body: requestBody })
             .then((responseData) => {
