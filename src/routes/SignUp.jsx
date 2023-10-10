@@ -7,7 +7,6 @@ import { Link, useNavigate } from "react-router-dom"
 import { useEffect, useState } from 'react'
 
 import useHttpRequest from '../hooks/useHttpRequest'
-import useLogout from '../hooks/useLogout'
 
 import PageTitle from "../components/PageTitle"
 import LoadingOverlay from '../components/LoadingOverlay'
@@ -24,11 +23,6 @@ const SignUp = () => {
     const MySwal = withReactContent(Swal)
 
     const { loading, sendRequest } = useHttpRequest()
-    const { logout } = useLogout()
-
-    useEffect(() => {
-        if (sessionStorage.getItem('user_token')) logout()
-    }, [])
 
     const handlePostRequest = (e) => {
         e.preventDefault()
