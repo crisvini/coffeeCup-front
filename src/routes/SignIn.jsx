@@ -13,7 +13,7 @@ import PageTitle from "../components/PageTitle"
 import LoadingOverlay from '../components/LoadingOverlay'
 import SideBanner from '../components/SideBanner'
 
-const signIn = () => {
+const SignIn = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -96,4 +96,4 @@ const signIn = () => {
     )
 }
 
-export default signIn
+export default SignIn

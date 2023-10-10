@@ -79,27 +79,27 @@ const SignUp = () => {
                 <div className="row h-100">
                     <div className="col-12 col-lg-6 d-flex justify-content-center align-items-center background-quaternary">
                         <div className="row">
-                            <div className="col-11 col-lg-8 mx-auto text-left fs-5 color-primary mt-lg-4">
+                            <div className="col-11 col-lg-8 mx-auto text-left fs-5 color-primary mt-lg-4 w-100">
                                 <Link to="/" className='tertiary-logo-hover-color'>
                                     <i className="bi bi-arrow-left"></i>&nbsp;Login</Link>
                             </div>
-                            <div className="col-11 col-lg-8 mx-auto text-left fs-4 color-primary mt-lg-4 mt-2">
+                            <div className="col-11 col-lg-8 mx-auto text-left fs-4 color-primary mt-lg-4 mt-2 w-100">
                                 <span>Sign up</span>
                             </div>
                             <form onSubmit={handlePostRequest}>
-                                <div className="col-11 col-lg-8 mx-auto mt-3">
+                                <div className="col-11 col-lg-8 mx-auto mt-3 w-100">
                                     <input type="text" className="form-control background-secondary color-quaternary" id="name"
                                         placeholder="Name" value={name} onChange={(e) => setName(e.target.value)}></input>
                                 </div>
-                                <div className="col-11 col-lg-8 mx-auto mt-3">
+                                <div className="col-11 col-lg-8 mx-auto mt-3 w-100">
                                     <input type="email" className="form-control background-secondary color-quaternary" id="email"
                                         placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)}></input>
                                 </div>
-                                <div className="col-11 col-lg-8 mx-auto mt-3">
+                                <div className="col-11 col-lg-8 mx-auto mt-3 w-100">
                                     <input type="password" className="form-control background-secondary color-quaternary" id="password"
                                         placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
                                 </div>
-                                <div className="col-11 col-lg-8 mx-auto mt-3">
+                                <div className="col-11 col-lg-8 mx-auto mt-3 w-100">
                                     <input type="submit" className="btn primary-logo-button-color w-100" value="Sign up" />
                                 </div>
                             </form>
@@ -108,6 +108,7 @@ const SignUp = () => {
                     <SideBanner banner={SignUpBanner} />
                 </div>
             </main >
+            <LoadingOverlay loading={loading} />
         </div >
     )
 }
