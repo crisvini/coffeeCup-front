@@ -26,6 +26,7 @@ const SignIn = () => {
 
     useEffect(() => {
         if (sessionStorage.getItem('user_token')) logout()
+        sessionStorage.clear()
     }, [])
 
     const handlePostRequest = (e) => {

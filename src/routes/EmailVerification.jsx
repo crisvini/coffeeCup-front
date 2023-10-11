@@ -1,8 +1,8 @@
-import SignUpBanner from '../assets/sign-up-banner.svg'
+import VerificationBanner from '../assets/verification-banner.svg'
 
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { useState } from 'react'
 
 import useHttpRequest from '../hooks/useHttpRequest'
@@ -61,6 +61,24 @@ const EmailVerification = () => {
         }
     }
 
+    const verificationEmail = sessionStorage.getItem('verification_email')
+    const handleTokenRessend = () => {
+        sendRequest({ method: 'POST', url: 'http://localhost/api/send-verification-token', body: { email: verificationEmail } })
+            .then((responseData) => {
+                sessionStorage.setItem('verification_token', responseData)
+                MySwal.fire({
+                    title: 'Success',
+                    text: "We've send you a e-mail with a new verification token",
+                    icon: 'success',
+                    buttonsStyling: false,
+                    customClass: {
+                        confirmButton: 'btn primary-logo-button-color'
+                    },
+                    confirmButtonText: 'Ok'
+                })
+            })
+    }
+
     return (
         <div className="background-quaternary vh-100">
             <PageTitle title='E-mail verification' />
@@ -72,7 +90,8 @@ const EmailVerification = () => {
                         <div className="row">
                             <BackLink link='/signup' swalText='Do you really want to get back? You will lost unsaved data' linkText='Sign up' />
                             <div className="col-11 col-lg-8 mx-auto text-left fs-4 color-primary mt-lg-4 mt-2 w-100">
-                                <span>E-mail verification</span>
+                                <span>E-mail verification</span><br />
+                                <span className='fs-6'>We've send you a e-mail with a verification token</span>
                             </div>
                             <form onSubmit={handleEmailVerification}>
                                 <div className="col-11 col-lg-8 mx-auto mt-3 w-100">
@@ -83,9 +102,12 @@ const EmailVerification = () => {
                                     <input type="submit" className="btn primary-logo-button-color w-100" value="Sign up" />
                                 </div>
                             </form>
+                            <div className="col-11 col-lg-8 mx-auto text-center mt-3">
+                                <Link onClick={handleTokenRessend} className="logo-link-color">Didn't received a token? ressend</Link>
+                            </div>
                         </div>
                     </div>
-                    <SideBanner banner={SignUpBanner} />
+                    <SideBanner banner={VerificationBanner} />
                 </div>
             </main >
             <LoadingOverlay loading={loading} />

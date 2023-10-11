@@ -53,6 +53,7 @@ const SignUp = () => {
                 sendRequest({ method: 'POST', url: 'http://localhost/api/send-verification-token', body: { email } })
                     .then((responseData) => {
                         sessionStorage.setItem('verification_token', responseData)
+                        sessionStorage.setItem('verification_email', email)
                         navigate('/signup/email-verification')
                     })
             })
