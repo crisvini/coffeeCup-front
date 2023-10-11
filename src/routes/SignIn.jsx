@@ -50,10 +50,19 @@ const SignIn = () => {
                         confirmButtonText: 'Ok'
                     })
                     return
+                } else if (responseData.error) {
+                    const userId = responseData.user_id
+                    sendRequest({ method: 'POST', url: 'http://localhost/api/send-verification-token', body: { email } })
+                        .then((responseData) => {
+                            sessionStorage.setItem('verification_token', responseData)
+                            sessionStorage.setItem('verification_email', email)
+                            sessionStorage.setItem('user_id_verification', userId)
+                            navigate('/signup/email-verification')
+                        })
+                } else {
+                    sessionStorage.setItem('user_token', responseData);
+                    navigate('/home')
                 }
-                sessionStorage.setItem('user_token', responseData);
-
-                navigate('/home')
             })
     }
 
