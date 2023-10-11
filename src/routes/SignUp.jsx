@@ -74,7 +74,7 @@ const SignUp = () => {
                 <div className="row h-100">
                     <div className="col-12 col-lg-6 d-flex justify-content-center align-items-center background-quaternary">
                         <div className="row">
-                            <BackLink link='/' swalText='Do you really want to get back? You will lost unsaved data' linkText='Login' />
+                            <BackLink link='/' swalText='Do you really want to get back? You will lost unsaved data' linkText='Login' warning={false} />
                             <div className="col-11 col-lg-8 mx-auto text-left fs-4 color-primary mt-lg-4 mt-2 w-100">
                                 <span>Sign up</span>
                             </div>

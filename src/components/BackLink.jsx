@@ -3,12 +3,16 @@ import { useNavigate } from "react-router-dom"
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
 
-const BackLink = ({ link, swalText, linkText }) => {
+const BackLink = ({ link, swalText, linkText, warning = true }) => {
 
     const navigate = useNavigate()
     const MySwal = withReactContent(Swal)
 
     const handleBackLink = (link, text) => {
+        if (!warning) {
+            navigate(link)
+            return
+        }
         Swal.fire({
             title: 'Wait!',
             text: text,
