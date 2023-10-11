@@ -71,11 +71,11 @@ const SignIn = () => {
                             </div>
                             <form onSubmit={handlePostRequest}>
                                 <div className="col-11 col-lg-8 mx-auto mt-3">
-                                    <input type="email" className="form-control background-secondary color-quaternary" id="email"
+                                    <input required type="email" className="form-control background-secondary color-quaternary" id="email"
                                         placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)}></input>
                                 </div>
                                 <div className="col-11 col-lg-8 mx-auto mt-3">
-                                    <input type="password" className="form-control background-secondary color-quaternary" id="password"
+                                    <input required type="password" className="form-control background-secondary color-quaternary" id="password"
                                         placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
                                 </div>
                                 <div className="col-11 col-lg-8 mx-auto mt-3">
