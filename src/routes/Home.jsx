@@ -26,14 +26,17 @@ const Home = () => {
 
             <main className="container h-100 mt-3">
                 <form className="row background-secondary rounded-lg-3 py-2 px-2" onSubmit={handleDiscussionSubmit}>
-                    <div className="col-12 col-lg-10 ps-lg-0">
-                        <div className="h-100">
-                            <textarea className="form-control rounded-3 background-secondary color-quaternary"
-                                placeholder="Why not start a new discussion?" required></textarea>
-                        </div>
+                    <div className="col-12 px-lg-0 mb-3">
+                        <span className="color-primary ps-lg-0 mb-2">Why not start a new discussion?</span>
                     </div>
-                    <div className="col-12 col-lg-2 mt-2 mt-lg-0 pe-lg-0">
-                        <input className="form-control btn primary-logo-button-color h-100" type="submit" value='Send' />
+                    <div className="col-12 px-lg-0">
+                        <input required type="text" className="form-control background-secondary color-quaternary mb-2" id="title"
+                            placeholder="Title"></input>
+                        <textarea className="form-control rounded-3 background-secondary color-quaternary mb-2"
+                            placeholder="Body" required></textarea>
+                    </div>
+                    <div className="ms-auto col-2 px-lg-0">
+                        <input className="form-control btn primary-logo-button-color" type="submit" value='Send' />
                     </div>
                 </form>
 
