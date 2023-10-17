@@ -1,6 +1,7 @@
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
 import { Link, useNavigate } from "react-router-dom"
+import { useState } from "react"
 
 import useHttpRequest from '../hooks/useHttpRequest'
 
@@ -11,6 +12,9 @@ import Header from "../components/Header"
 const Home = () => {
     const navigate = useNavigate()
     const MySwal = withReactContent(Swal)
+
+    const [title, setTitle] = useState()
+    const [body, setBody] = useState()
 
     const { loading, sendRequest } = useHttpRequest()
 
@@ -31,11 +35,11 @@ const Home = () => {
                     </div>
                     <div className="col-12 px-lg-0">
                         <input required type="text" className="form-control background-secondary color-quaternary mb-2" id="title"
-                            placeholder="Title"></input>
+                            placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)}></input>
                         <textarea className="form-control rounded-3 background-secondary color-quaternary mb-2"
-                            placeholder="Body" required></textarea>
+                            placeholder="Body" value={body} required onChange={(e) => setBody(e.target.value)}></textarea>
                     </div>
-                    <div className="ms-auto col-2 px-lg-0">
+                    <div className="ms-auto col-12 col-lg-2 px-lg-0">
                         <input className="form-control btn primary-logo-button-color" type="submit" value='Send' />
                     </div>
                 </form>
