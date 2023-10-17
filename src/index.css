@@ -321,6 +321,10 @@ input[type=submit]:active {
   .fs-lg-3 {
     font-size: 1.75rem !important;
   }
+
+  .rounded-lg-3 {
+    border-radius: var(--bs-border-radius-lg) !important;
+  }
 }
 
 /* swal2 */

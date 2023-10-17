@@ -1,7 +1,6 @@
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
 import { Link, useNavigate } from "react-router-dom"
-import { useState } from 'react'
 
 import useHttpRequest from '../hooks/useHttpRequest'
 
@@ -15,29 +14,28 @@ const Home = () => {
 
     const { loading, sendRequest } = useHttpRequest()
 
+    const handleDiscussionSubmit = (e) => {
+        e.preventDefault()
+        console.log('handleDiscussionSubmit')
+    }
+
     return (
         <div className="background-quaternary vh-100">
             <PageTitle title='Home' />
             <Header />
 
-            <main className="container h-100 mt-3 w-lg-35">
-                <div className="row background-secondary py-2 px-3" id="create_post">
-                    <div className="col-11 mx-auto px-0">
-                        <div className="pe-2 h-100">
-                            <textarea className="form-control background-tertiary primary-border color-primary h-100"
-                                placeholder="Thinking about something?"></textarea>
+            <main className="container h-100 mt-3">
+                <form className="row background-secondary rounded-lg-3 py-2 px-2" onSubmit={handleDiscussionSubmit}>
+                    <div className="col-12 col-lg-10 ps-lg-0">
+                        <div className="h-100">
+                            <textarea className="form-control rounded-3 background-secondary color-quaternary"
+                                placeholder="Why not start a new discussion?" required></textarea>
                         </div>
                     </div>
-                    <div className="col-1 mx-auto px-0 text-center">
-                        <div id="post_buttons">
-                            <span className="color-primary mr-2 fs-4 tertiary-logo-hover-color pointer" id="add_image_button"><i
-                                className="fa-regular fa-image"></i></span>
-                            <div className="w-100"></div>
-                            <span className="tertiary-logo-color fs-4 primary-logo-hover-color pointer" id="post_button"><i
-                                className="fa-regular fa-paper-plane"></i></span>
-                        </div>
+                    <div className="col-12 col-lg-2 mt-2 mt-lg-0 pe-lg-0">
+                        <input className="form-control btn primary-logo-button-color h-100" type="submit" value='Send' />
                     </div>
-                </div>
+                </form>
 
                 <div className="row background-secondary py-2 mt-3" id="post_1">
                     <div className="col-12">
