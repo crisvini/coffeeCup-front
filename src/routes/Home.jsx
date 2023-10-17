@@ -1,13 +1,14 @@
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
 import { Link, useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import useHttpRequest from '../hooks/useHttpRequest'
 
 import PageTitle from "../components/PageTitle"
 import LoadingOverlay from '../components/LoadingOverlay'
 import Header from "../components/Header"
+import Discussion from "../components/Discussion"
 
 const Home = () => {
     const navigate = useNavigate()
@@ -16,8 +17,24 @@ const Home = () => {
     const [title, setTitle] = useState("")
     const [body, setBody] = useState("")
     const [userId, setUserId] = useState(sessionStorage.getItem('user_id'))
+    const [discussions, setDiscussions] = useState("")
 
     const { loading, sendRequest } = useHttpRequest()
+
+    // const returnDiscussions = () => {
+    useEffect(() => {
+        sendRequest({ method: 'GET', url: 'http://localhost/api/discussions' })
+            .then((responseData) => {
+                setDiscussions(responseData)
+            })
+    }, [])
+    // }
+    // returnDiscussions()
+
+    // useEffect(() => {
+    //     // Este useEffect é executado sempre que discussions muda
+    //     console.log("discussions mudou:", discussions);
+    // }, [discussions]);
 
     const handleDiscussionSubmit = (e) => {
         e.preventDefault()
@@ -46,7 +63,7 @@ const Home = () => {
                 setBody('')
                 MySwal.fire({
                     title: 'Success',
-                    text: 'Discussion created with success!',
+                    text: 'Discussion published',
                     icon: 'success',
                     buttonsStyling: false,
                     customClass: {
@@ -78,58 +95,8 @@ const Home = () => {
                     </div>
                 </form>
 
-                <div className="row background-secondary py-2 mt-3" id="post_1">
-                    <div className="col-12">
-                        <div className="row px-3">
-                            <div className="col-1 text-start p-0">
-                                <i className="fa-regular fa-circle-user color-primary fs-1"></i>
-                            </div>
-                            <div className="col-6 text-start ms-2 ms-lg-3 p-0 align-self-center">
-                                <span className="color-primary">
-                                    cristian.leoncini
-                                </span>
-                            </div>
-                        </div>
-                        <div className="row mt-2">
-                            <div className="col-12 p-0 color-primary">
-                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure a molestiae dignissimos nostrum? Aperiam nesciunt voluptatem ducimus perferendis maxime nisi nam temporibus ipsa recusandae! Pariatur praesentium cum voluptate optio quia.</span>
-                            </div>
-                        </div>
-                        <div className="row mt-1">
-                            <div className="col-1 me-3 ps-3 pe-0 text-start">
-                                <span className="color-primary tertiary-logo-hover-color fs-lg-3 fs-1 fw-light pointer"><i
-                                    className="fa-regular fa-heart"></i></span>
-                            </div>
-                            <div className="col-2 text-start">
-                                <span className="color-primary tertiary-logo-hover-color fs-lg-3 fs-1 fw-light pointer"><i
-                                    className="fa-regular fa-comment"></i></span>
-                            </div>
-                        </div>
-                        <div className="row mt-1">
-                            <div className="col-12 ps-3 pe-0 text-start">
-                                <span className="color-primary fs-6 fw-bold pointer">25 likes</span>
-                            </div>
-                        </div>
-                        <div className="row mt-1">
-                            <div className="col-12 ps-3 pe-0 text-start">
-                                <span className="color-primary fs-6 fw-bold pointer">cristian.leoncini&nbsp;&nbsp;</span>
-                                <span className="color-primary fs-6">São Paulo</span>
-                            </div>
-                        </div>
-                        <div className="row mt-1">
-                            <div className="col-12 ps-3 pe-0 text-start">
-                                <span className="color-quaternary fs-6 pointer">See all 2 comments</span>
-                            </div>
-                        </div>
-                        <div className="row mt-1">
-                            <div className="col-12 ps-3 pe-0 text-start">
-                                <span className="color-quaternary fs-10">2022/10/21 at 2pm</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <Discussion data={discussions} />
             </main>
-
             <LoadingOverlay loading={loading} />
         </div >
     )

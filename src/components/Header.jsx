@@ -7,7 +7,7 @@ const Header = () => {
     const { logout } = useLogout()
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark background-secondary sticky-top">
+        <nav className="navbar navbar-expand-lg navbar-dark background-tertiary sticky-top">
             <div className="container">
                 <Link className="navbar-brand" to="/">
                     <img style={{ width: '3.5vh' }} src={Logo} />&nbsp;
@@ -24,6 +24,9 @@ const Header = () => {
                         <li className="nav-item">
                             <Link className='nav-link color-primary fs-6 tertiary-logo-hover-color py-0' to="/home">Home</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link className='nav-link color-primary fs-6 tertiary-logo-hover-color py-0' to="/followed-user-discusisons">Followed users discussions</Link>
+                        </li>
                     </ul>
                     <span>
                         <ul className="navbar-nav flex-row flex-wrap ms-md-auto back">
@@ -31,7 +34,7 @@ const Header = () => {
                                 <button type="button"
                                     className="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle color-primary tertiary-logo-hover-color"
                                     data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">
-                                    Cristian
+                                    crisvini.leoncini
                                 </button>
                                 <ul className="dropdown-menu dropdown-menu-end background-tertiary">
                                     <li>
