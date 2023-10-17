@@ -76,7 +76,7 @@ const Home = () => {
     }
 
     return (
-        <div className="background-quaternary vh-100">
+        <div className="background-quaternary">
             <PageTitle title='Home' />
             <Header />
 
@@ -96,10 +96,11 @@ const Home = () => {
                     </div>
                 </form>
 
-                {discussions.map((item, index) => {
-                    <Discussion data={item} />
-                })}
+                {discussions.map((item, index) => (
+                    <Discussion key={index} data={item} />
+                ))}
 
+                <br />
             </main>
             <LoadingOverlay loading={loading} />
         </div >
