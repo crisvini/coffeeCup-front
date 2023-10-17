@@ -60,7 +60,7 @@ const SignIn = () => {
                             navigate('/signup/email-verification')
                         })
                 } else {
-                    sessionStorage.setItem('user_token', responseData);
+                    sessionStorage.setItem('user_token', responseData.token);
                     navigate('/home')
                 }
             })
