@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 
 const Discussion = ({ data }) => {
+    console.log(data);
     return (
         <div className="row background-secondary mt-3 rounded-lg-3 py-2 px-2">
 

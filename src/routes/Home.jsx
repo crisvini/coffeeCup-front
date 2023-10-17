@@ -17,23 +17,24 @@ const Home = () => {
     const [title, setTitle] = useState("")
     const [body, setBody] = useState("")
     const [userId, setUserId] = useState(sessionStorage.getItem('user_id'))
-    const [discussions, setDiscussions] = useState("")
+    const [discussions, setDiscussions] = useState([])
 
     const { loading, sendRequest } = useHttpRequest()
 
-    // const returnDiscussions = () => {
-    useEffect(() => {
-        sendRequest({ method: 'GET', url: 'http://localhost/api/discussions' })
-            .then((responseData) => {
-                setDiscussions(responseData)
-            })
-    }, [])
-    // }
-    // returnDiscussions()
+    const returnDiscussions = () => {
+        useEffect(() => {
+            sendRequest({ method: 'GET', url: 'http://localhost/api/discussions' })
+                .then((responseData) => {
+                    setDiscussions(responseData)
+                })
+        }, [])
+    }
+    returnDiscussions()
 
     // useEffect(() => {
-    //     // Este useEffect é executado sempre que discussions muda
-    //     console.log("discussions mudou:", discussions);
+    //     discussions.map((item, index) => {
+    //         console.log(item);
+    //     })
     // }, [discussions]);
 
     const handleDiscussionSubmit = (e) => {
@@ -95,7 +96,10 @@ const Home = () => {
                     </div>
                 </form>
 
-                <Discussion data={discussions} />
+                {discussions.map((item, index) => {
+                    <Discussion data={item} />
+                })}
+
             </main>
             <LoadingOverlay loading={loading} />
         </div >
