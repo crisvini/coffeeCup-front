@@ -61,6 +61,7 @@ const SignIn = () => {
                         })
                 } else {
                     sessionStorage.setItem('user_token', responseData.token);
+                    sessionStorage.setItem('user_id', responseData.user_id);
                     navigate('/home')
                 }
             })

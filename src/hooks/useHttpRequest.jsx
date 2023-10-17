@@ -4,11 +4,11 @@ const useHttpRequest = () => {
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(false)
 
-    const sendRequest = async ({ method, url, body = null, auth = null }) => {
+    const sendRequest = async ({ method, url, body = null }) => {
         setLoading(true)
         const headers = {
             'Content-Type': 'application/json',
-            'Authorization': auth ? ('Bearer ' + auth) : null
+            'Authorization': sessionStorage.getItem('user_token') ? ('Bearer ' + sessionStorage.getItem('user_token')) : null
         }
 
         const config = {

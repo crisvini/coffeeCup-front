@@ -13,12 +13,12 @@ const useLogout = () => {
     const logout = () => {
         sendRequest({ method: 'POST', url: 'http://localhost/api/logout', auth: token })
             .then((responseData) => {
-                sessionStorage.removeItem('user_token')
+                sessionStorage.clear()
                 if (location.pathname !== '/') navigate('/')
             })
     }
 
-    return {logout}
+    return { logout }
 }
 
 export default useLogout

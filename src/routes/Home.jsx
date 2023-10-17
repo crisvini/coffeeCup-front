@@ -13,14 +13,48 @@ const Home = () => {
     const navigate = useNavigate()
     const MySwal = withReactContent(Swal)
 
-    const [title, setTitle] = useState()
-    const [body, setBody] = useState()
+    const [title, setTitle] = useState("")
+    const [body, setBody] = useState("")
+    const [userId, setUserId] = useState(sessionStorage.getItem('user_id'))
 
     const { loading, sendRequest } = useHttpRequest()
 
     const handleDiscussionSubmit = (e) => {
         e.preventDefault()
-        console.log('handleDiscussionSubmit')
+
+        const requestBody = {
+            'user_id': userId,
+            title,
+            'text': body
+        };
+        sendRequest({ method: 'POST', url: 'http://localhost/api/discussions', body: requestBody })
+            .then((responseData) => {
+                if (!responseData) {
+                    MySwal.fire({
+                        title: 'Error',
+                        text: 'Try again later',
+                        icon: 'error',
+                        buttonsStyling: false,
+                        customClass: {
+                            confirmButton: 'btn primary-logo-button-color'
+                        },
+                        confirmButtonText: 'Ok'
+                    })
+                    return
+                }
+                setTitle('')
+                setBody('')
+                MySwal.fire({
+                    title: 'Success',
+                    text: 'Discussion created with success!',
+                    icon: 'success',
+                    buttonsStyling: false,
+                    customClass: {
+                        confirmButton: 'btn primary-logo-button-color'
+                    },
+                    confirmButtonText: 'Ok'
+                })
+            })
     }
 
     return (
