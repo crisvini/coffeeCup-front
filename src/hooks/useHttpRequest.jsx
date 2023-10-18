@@ -4,7 +4,7 @@ const useHttpRequest = () => {
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(false)
 
-    const sendRequest = async ({ method, url, body = null, order }) => {
+    const sendRequest = async ({ method, url, body = null, descOrder, returnUpdatedData }) => {
         setLoading(true)
         const headers = {
             'Content-Type': 'application/json',
@@ -25,17 +25,7 @@ const useHttpRequest = () => {
         }
 
         const responseData = await response.json()
-        if (method !== 'GET') {
-            const config = {
-                'method': 'GET',
-                headers
-            }
-            const response = await fetch(url, config)
-            const responseData = await response.json()
-            setData(responseData)
-        } else {
-            setData(order ? responseData.reverse() : responseData)
-        }
+        setData(descOrder === true ? responseData.reverse() : responseData)
         setLoading(false)
 
         return responseData

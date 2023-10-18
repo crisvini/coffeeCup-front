@@ -23,7 +23,7 @@ const Home = () => {
 
     const returnDiscussions = () => {
         useEffect(() => {
-            sendRequest({ method: 'GET', url: 'http://localhost/api/discussions', order: true })
+            sendRequest({ method: 'GET', url: 'http://localhost/api/discussions', descOrder: true })
                 .then((responseData) => {
                     setDiscussions(responseData)
                 })
@@ -39,7 +39,7 @@ const Home = () => {
             title,
             'text': body
         };
-        sendRequest({ method: 'POST', url: 'http://localhost/api/discussions', body: requestBody, order: 'desc' })
+        sendRequest({ method: 'POST', url: 'http://localhost/api/discussions', body: requestBody })
             .then((responseData) => {
                 if (!responseData) {
                     MySwal.fire({
