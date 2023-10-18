@@ -23,19 +23,13 @@ const Home = () => {
 
     const returnDiscussions = () => {
         useEffect(() => {
-            sendRequest({ method: 'GET', url: 'http://localhost/api/discussions' })
+            sendRequest({ method: 'GET', url: 'http://localhost/api/discussions', order: true })
                 .then((responseData) => {
                     setDiscussions(responseData)
                 })
         }, [])
     }
     returnDiscussions()
-
-    // useEffect(() => {
-    //     discussions.map((item, index) => {
-    //         console.log(item);
-    //     })
-    // }, [discussions]);
 
     const handleDiscussionSubmit = (e) => {
         e.preventDefault()
@@ -45,7 +39,7 @@ const Home = () => {
             title,
             'text': body
         };
-        sendRequest({ method: 'POST', url: 'http://localhost/api/discussions', body: requestBody })
+        sendRequest({ method: 'POST', url: 'http://localhost/api/discussions', body: requestBody, order: 'desc' })
             .then((responseData) => {
                 if (!responseData) {
                     MySwal.fire({
@@ -60,6 +54,7 @@ const Home = () => {
                     })
                     return
                 }
+                setDiscussions([responseData, ...discussions])
                 setTitle('')
                 setBody('')
                 MySwal.fire({
@@ -73,6 +68,7 @@ const Home = () => {
                     confirmButtonText: 'Ok'
                 })
             })
+
     }
 
     return (
