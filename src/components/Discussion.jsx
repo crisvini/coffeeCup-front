@@ -1,12 +1,17 @@
 import { Link } from "react-router-dom"
+import useFormatDate from "../hooks/useFormatDate"
+import useFormatEmail from "../hooks/useFormatEmail"
 
 const Discussion = ({ data }) => {
+    const { formatDate } = useFormatDate()
+    const { formatEmail } = useFormatEmail()
+
     return (
         <div className="row background-secondary mt-3 rounded-lg-3 py-2 px-2">
             <div className="col-12 px-lg-0 mb-1">
                 <div className="row">
                     <div className="col-12 col-lg-8">
-                        <span className="color-primary"><Link to='/profile/39' className="fw-bold primary-link-color">crisvini.leoncini</Link> published a discussion</span>
+                        <span className="color-primary"><Link to='/profile/39' className="fw-bold primary-link-color">{formatEmail(data.user.email)}</Link> published a discussion</span>
                     </div>
                     <div className="col-12 col-lg-4 text-lg-end">
                         <button className="btn btn-sm quaternary-logo-button-color"><i className="bi bi-hand-thumbs-up"></i></button>
@@ -21,7 +26,7 @@ const Discussion = ({ data }) => {
                 <span className="color-tertiary fs-6">{data.text}</span>
             </div>
             <div className="col-12 px-lg-0 mb-1">
-                <span className="color-quaternary fs-10">2022/10/21 at 2pm</span>
+                <span className="color-quaternary fs-10">{formatDate(data.created_at)}</span>
             </div>
         </div>
     )
