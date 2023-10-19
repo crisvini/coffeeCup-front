@@ -22,6 +22,7 @@ const Home = () => {
     const [baseUrl, setBaseUrl] = useState('http://localhost/api/discussions')
     const [urlWithPageParameter, setUrlWithPageParameter] = useState('http://localhost/api/discussions?page=' + firstPage)
     const [lastPage, setLastPage] = useState('')
+    const [totalDiscussions, setTotalDiscussions] = useState('')
 
     const { loading, sendRequest } = useHttpRequest()
 
@@ -29,6 +30,7 @@ const Home = () => {
         sendRequest({ method: 'GET', url: urlWithPageParameter })
             .then((responseData) => {
                 setLastPage(responseData.last_page)
+                setTotalDiscussions(responseData.total)
                 setDiscussions(responseData.data)
             })
     }, [urlWithPageParameter])
@@ -117,6 +119,9 @@ const Home = () => {
                         </div>
                         <div className="text-end">
                             <span className="color-primary fs-10">Page {currentPage} of {lastPage}</span>
+                        </div>
+                        <div className="text-end">
+                            <span className="color-primary fs-10">Total of discussions: {totalDiscussions}</span>
                         </div>
                     </div>
                 </div>
