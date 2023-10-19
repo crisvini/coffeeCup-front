@@ -41,7 +41,6 @@
   }
 }
 
-
 p,
 span,
 a,
@@ -57,7 +56,8 @@ a {
 }
 
 input:not([type="submit"]):focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   outline: none !important;
   box-shadow: none !important;
   border-color: var(--tertiaryLogoColor) !important;

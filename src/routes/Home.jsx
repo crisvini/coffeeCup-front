@@ -16,6 +16,7 @@ const Home = () => {
     const [body, setBody] = useState("")
     const [userId, setUserId] = useState(sessionStorage.getItem('user_id'))
     const [discussions, setDiscussions] = useState([])
+    const [discussionsFilter, setDiscussionsFilter] = useState(1)
 
     const firstPage = 1
     const [currentPage, setCurrentPage] = useState(firstPage)
@@ -104,6 +105,16 @@ const Home = () => {
                         <input className="form-control btn btn-sm primary-logo-button-color" type="submit" value='Send' />
                     </div>
                 </form>
+
+                <div className="row mt-5">
+                    <div className="col-3 px-lg-0 ms-auto">
+                        <select className="form-select-sm w-100 rounded-3 background-secondary color-quaternary mb-2" defaultValue={discussionsFilter}>
+                            <option value="1">All discussions</option>
+                            <option value="2">Followed users</option>
+                            <option value="3">My discussions</option>
+                        </select>
+                    </div>
+                </div>
 
                 {discussions.map((item, index) => (
                     <Discussion key={index} data={item} />
