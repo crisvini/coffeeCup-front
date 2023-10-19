@@ -16,22 +16,33 @@ const Home = () => {
     const [body, setBody] = useState("")
     const [userId, setUserId] = useState(sessionStorage.getItem('user_id'))
     const [discussions, setDiscussions] = useState([])
-    const [discussionsData, setDiscussionsData] = useState([])
-    const [currentPage, setCurrentPage] = useState(1)
-    const [url, setUrl] = useState('http://localhost/api/discussions?page=' + currentPage)
+
+    const firstPage = 1
+    const [currentPage, setCurrentPage] = useState(firstPage)
+    const [baseUrl, setBaseUrl] = useState('http://localhost/api/discussions')
+    const [urlWithPageParameter, setUrlWithPageParameter] = useState('http://localhost/api/discussions?page=' + firstPage)
+    const [lastPage, setLastPage] = useState('')
 
     const { loading, sendRequest } = useHttpRequest()
 
     useEffect(() => {
-        sendRequest({ method: 'GET', url })
+        sendRequest({ method: 'GET', url: urlWithPageParameter })
             .then((responseData) => {
-                setDiscussions(responseData)
-                setDiscussionsData(responseData.data)
+                console.log(responseData);
+                setLastPage(responseData.last_page)
+                setDiscussions(responseData.data)
             })
-    }, [url])
+    }, [urlWithPageParameter])
 
-    const handlePage = () => {
+    const handlePageChange = (page) => {
+        if (page < firstPage) page = 1
+        if (page > lastPage) page = lastPage
 
+        setCurrentPage(page)
+        setUrlWithPageParameter(baseUrl + '?page=' + page)
+        console.log(urlWithPageParameter)
+
+        // console.log(page)
     }
 
     // const returnDiscussions = () => {
@@ -39,7 +50,7 @@ const Home = () => {
     //         sendRequest({ method: 'GET', url })
     //             .then((responseData) => {
     //                 setDiscussions(responseData)
-    //                 setDiscussionsData(responseData.data)
+    //                 setDiscussions(responseData.data)
     //             })
     //     }, [])
     // }
@@ -53,7 +64,7 @@ const Home = () => {
             title,
             'text': body
         };
-        sendRequest({ method: 'POST', url: 'http://localhost/api/discussions', body: requestBody })
+        sendRequest({ method: 'POST', url: baseUrl, body: requestBody })
             .then((responseData) => {
                 if (!responseData) {
                     MySwal.fire({
@@ -68,7 +79,7 @@ const Home = () => {
                     })
                     return
                 }
-                setDiscussions([responseData, ...discussionsData])
+                setDiscussions([responseData, ...discussions])
                 setTitle('')
                 setBody('')
                 MySwal.fire({
@@ -106,20 +117,20 @@ const Home = () => {
                     </div>
                 </form>
 
-                {discussionsData.map((item, index) => (
+                {discussions.map((item, index) => (
                     <Discussion key={index} data={item} />
                 ))}
 
                 <div className="row mt-3">
                     <div className="ms-auto col-12 col-lg-4 px-lg-0 text-center text-lg-end">
                         <div className="btn-group w-100">
-                            <button className="btn btn-sm quaternary-logo-button-color"><i className="bi bi-chevron-double-left"></i>&nbsp;First</button>
-                            <button className="btn btn-sm primary-logo-button-color"><i className="bi bi-chevron-left"></i>&nbsp;Previous</button>
-                            <button className="btn btn-sm primary-logo-button-color">Next&nbsp;<i className="bi bi-chevron-right"></i></button>
-                            <button className="btn btn-sm quaternary-logo-button-color">Last&nbsp;<i className="bi bi-chevron-double-right"></i></button>
+                            <button className="btn btn-sm quaternary-logo-button-color" onClick={() => handlePageChange(1)}><i className="bi bi-chevron-double-left"></i>&nbsp;First</button>
+                            <button className="btn btn-sm primary-logo-button-color" onClick={() => handlePageChange(currentPage - 1)}><i className="bi bi-chevron-left"></i>&nbsp;Previous</button>
+                            <button className="btn btn-sm primary-logo-button-color" onClick={() => handlePageChange(currentPage + 1)}>Next&nbsp;<i className="bi bi-chevron-right"></i></button>
+                            <button className="btn btn-sm quaternary-logo-button-color" onClick={() => handlePageChange(lastPage)}>Last&nbsp;<i className="bi bi-chevron-double-right"></i></button>
                         </div>
                         <div className="text-end">
-                            <span className="color-primary fs-10">Page 1 of 10</span>
+                            <span className="color-primary fs-10">Page {currentPage} of {lastPage}</span>
                         </div>
                     </div>
                 </div>
