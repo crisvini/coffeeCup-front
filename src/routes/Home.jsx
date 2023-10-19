@@ -16,18 +16,34 @@ const Home = () => {
     const [body, setBody] = useState("")
     const [userId, setUserId] = useState(sessionStorage.getItem('user_id'))
     const [discussions, setDiscussions] = useState([])
+    const [discussionsData, setDiscussionsData] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [url, setUrl] = useState('http://localhost/api/discussions?page=' + currentPage)
 
     const { loading, sendRequest } = useHttpRequest()
 
-    const returnDiscussions = () => {
-        useEffect(() => {
-            sendRequest({ method: 'GET', url: 'http://localhost/api/discussions', descOrder: true })
-                .then((responseData) => {
-                    setDiscussions(responseData)
-                })
-        }, [])
+    useEffect(() => {
+        sendRequest({ method: 'GET', url })
+            .then((responseData) => {
+                setDiscussions(responseData)
+                setDiscussionsData(responseData.data)
+            })
+    }, [url])
+
+    const handlePage = () => {
+
     }
-    returnDiscussions()
+
+    // const returnDiscussions = () => {
+    //     useEffect(() => {
+    //         sendRequest({ method: 'GET', url })
+    //             .then((responseData) => {
+    //                 setDiscussions(responseData)
+    //                 setDiscussionsData(responseData.data)
+    //             })
+    //     }, [])
+    // }
+    // returnDiscussions()
 
     const handleDiscussionSubmit = (e) => {
         e.preventDefault()
@@ -52,7 +68,7 @@ const Home = () => {
                     })
                     return
                 }
-                setDiscussions([responseData, ...discussions])
+                setDiscussions([responseData, ...discussionsData])
                 setTitle('')
                 setBody('')
                 MySwal.fire({
@@ -90,9 +106,23 @@ const Home = () => {
                     </div>
                 </form>
 
-                {discussions.map((item, index) => (
+                {discussionsData.map((item, index) => (
                     <Discussion key={index} data={item} />
                 ))}
+
+                <div className="row mt-3">
+                    <div className="ms-auto col-12 col-lg-4 px-lg-0 text-center text-lg-end">
+                        <div className="btn-group w-100">
+                            <button className="btn btn-sm quaternary-logo-button-color"><i className="bi bi-chevron-double-left"></i>&nbsp;First</button>
+                            <button className="btn btn-sm primary-logo-button-color"><i className="bi bi-chevron-left"></i>&nbsp;Previous</button>
+                            <button className="btn btn-sm primary-logo-button-color">Next&nbsp;<i className="bi bi-chevron-right"></i></button>
+                            <button className="btn btn-sm quaternary-logo-button-color">Last&nbsp;<i className="bi bi-chevron-double-right"></i></button>
+                        </div>
+                        <div className="text-end">
+                            <span className="color-primary fs-10">Page 1 of 10</span>
+                        </div>
+                    </div>
+                </div>
 
                 <br />
             </main>
