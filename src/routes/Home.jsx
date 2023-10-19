@@ -28,7 +28,6 @@ const Home = () => {
     useEffect(() => {
         sendRequest({ method: 'GET', url: urlWithPageParameter })
             .then((responseData) => {
-                console.log(responseData);
                 setLastPage(responseData.last_page)
                 setDiscussions(responseData.data)
             })
@@ -40,21 +39,7 @@ const Home = () => {
 
         setCurrentPage(page)
         setUrlWithPageParameter(baseUrl + '?page=' + page)
-        console.log(urlWithPageParameter)
-
-        // console.log(page)
     }
-
-    // const returnDiscussions = () => {
-    //     useEffect(() => {
-    //         sendRequest({ method: 'GET', url })
-    //             .then((responseData) => {
-    //                 setDiscussions(responseData)
-    //                 setDiscussions(responseData.data)
-    //             })
-    //     }, [])
-    // }
-    // returnDiscussions()
 
     const handleDiscussionSubmit = (e) => {
         e.preventDefault()
@@ -80,6 +65,7 @@ const Home = () => {
                     return
                 }
                 setDiscussions([responseData, ...discussions])
+                setUrlWithPageParameter(baseUrl)
                 setTitle('')
                 setBody('')
                 MySwal.fire({

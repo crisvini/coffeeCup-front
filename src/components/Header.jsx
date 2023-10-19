@@ -22,10 +22,7 @@ const Header = () => {
                 <div className="collapse navbar-collapse" id="navbar">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className='nav-link color-primary fs-6 tertiary-logo-hover-color py-0' to="/home">Home</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className='nav-link color-primary fs-6 tertiary-logo-hover-color py-0' to="/followed-user-discusisons">Followed users discussions</Link>
+                            <Link className='nav-link color-primary fs-6 tertiary-logo-hover-color py-0' to="/home">Discussions</Link>
                         </li>
                     </ul>
                     <span>
