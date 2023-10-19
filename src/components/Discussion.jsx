@@ -25,7 +25,7 @@ const Discussion = ({ data }) => {
             <div className="col-12 px-lg-0 mb-1">
                 <span className="color-tertiary fs-6">{data.text}</span>
             </div>
-            <div className="col-12 px-lg-0 mb-1">
+            <div className="col-12 px-lg-0 mb-1"> 
                 <span className="color-quaternary fs-10">{formatDate(data.created_at)}</span>
             </div>
         </div>

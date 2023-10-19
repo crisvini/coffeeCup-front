@@ -4,7 +4,7 @@ const useHttpRequest = () => {
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(false)
 
-    const sendRequest = async ({ method, url, body = null, descOrder, returnUpdatedData }) => {
+    const sendRequest = async ({ method, url, body = null, descOrder }) => {
         setLoading(true)
         const headers = {
             'Content-Type': 'application/json',

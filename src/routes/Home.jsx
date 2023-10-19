@@ -1,6 +1,5 @@
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
-import { Link, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 
 import useHttpRequest from '../hooks/useHttpRequest'
@@ -11,7 +10,6 @@ import Header from "../components/Header"
 import Discussion from "../components/Discussion"
 
 const Home = () => {
-    const navigate = useNavigate()
     const MySwal = withReactContent(Swal)
 
     const [title, setTitle] = useState("")
@@ -88,7 +86,7 @@ const Home = () => {
                             placeholder="Body" value={body} required onChange={(e) => setBody(e.target.value)}></textarea>
                     </div>
                     <div className="ms-auto col-12 col-lg-2 px-lg-0">
-                        <input className="form-control btn primary-logo-button-color" type="submit" value='Send' />
+                        <input className="form-control btn btn-sm primary-logo-button-color" type="submit" value='Send' />
                     </div>
                 </form>
 

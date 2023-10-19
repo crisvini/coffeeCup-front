@@ -31,7 +31,6 @@ const EmailVerification = () => {
         if (verificationToken === token) {
             sendRequest({ method: 'GET', url: ('http://localhost/api/receive-verification-token/' + userId) })
                 .then((responseData) => {
-                    console.log(responseData);
                     MySwal.fire({
                         title: 'Success',
                         text: 'E-mail verified with success, you will be redirected to the sign in page',
