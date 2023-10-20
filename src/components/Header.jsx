@@ -9,7 +9,7 @@ const Header = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark background-tertiary sticky-top">
             <div className="container">
-                <Link className="navbar-brand" to="/">
+                <Link className="navbar-brand" to="/home">
                     <img style={{ width: '3.5vh' }} src={Logo} />&nbsp;
                     <span className="color-primary align-middle fs-5 tertiary-logo-hover-color">coffee cup</span>
                 </Link>

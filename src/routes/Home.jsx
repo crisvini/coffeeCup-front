@@ -107,7 +107,7 @@ const Home = () => {
                 </form>
 
                 <div className="row mt-5">
-                    <div className="col-3 px-lg-0 ms-auto">
+                    <div className="col-12 col-lg-3 px-lg-0 ms-auto">
                         <select className="form-select-sm w-100 rounded-3 background-secondary color-quaternary mb-2" defaultValue={discussionsFilter}>
                             <option value="1">All discussions</option>
                             <option value="2">Followed users</option>
