@@ -34,7 +34,7 @@ const Discussion = () => {
     }, [])
 
     useEffect(() => {
-        sendRequest({ method: 'GET', url: 'http://localhost/api/discussionsAnswers' })
+        sendRequest({ method: 'GET', url: ('http://localhost/api/discussionsAnswers/filtered/' + id) })
             .then((responseData) => {
                 setAnswers(responseData)
             })
