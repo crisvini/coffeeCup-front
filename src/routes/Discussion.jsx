@@ -81,16 +81,6 @@ const Discussion = () => {
                                     <button className="ms-2 btn btn-sm primary-logo-button-color">Follow</button>
                                 </div>
                             }
-                            {/* {
-                                discussion.user_id == sessionStorage.getItem('user_id')
-                                    ?
-                                    ''
-                                    :
-                                    <div className="col-12 col-lg-4 text-lg-end">
-                                        <button className="btn btn-sm quaternary-logo-button-color"><i className="bi bi-hand-thumbs-up"></i></button>
-                                        <button className="ms-2 btn btn-sm primary-logo-button-color">Follow</button>
-                                    </div>
-                            } */}
                         </div>
                     </div>
                     <div className="col-12 px-lg-0 mb-1">

@@ -2,9 +2,11 @@ import Logo from '../assets/logo.png'
 import { Link } from "react-router-dom"
 
 import useLogout from '../hooks/useLogout'
+import useFormatEmail from '../hooks/useFormatEmail'
 
 const Header = () => {
     const { logout } = useLogout()
+    const { formatEmail } = useFormatEmail()
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark background-tertiary sticky-top">
@@ -31,7 +33,7 @@ const Header = () => {
                                 <button type="button"
                                     className="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle color-primary tertiary-logo-hover-color"
                                     data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">
-                                    crisvini.leoncini
+                                    {formatEmail(sessionStorage.getItem('user_email'))}
                                 </button>
                                 <ul className="dropdown-menu dropdown-menu-end background-tertiary">
                                     <li>
