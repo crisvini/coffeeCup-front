@@ -9,6 +9,7 @@ import useVerifyUser from "../hooks/useVerifyUser"
 import Header from "../components/Header"
 import LoadingOverlay from "../components/LoadingOverlay"
 import PageTitle from "../components/PageTitle"
+import Answer from "../components/Answer"
 
 const Discussion = () => {
     const { id } = useParams()
@@ -16,6 +17,7 @@ const Discussion = () => {
 
     const [discussion, setDiscussion] = useState([])
     const [answerText, setAnswerText] = useState([])
+    const [answers, setAnswers] = useState([])
 
     const navigate = useNavigate()
     const { loading, sendRequest } = useHttpRequest()
@@ -29,10 +31,27 @@ const Discussion = () => {
             .then((responseData) => {
                 setDiscussion(responseData)
             })
-    }, [url])
+    }, [])
 
-    const handleDiscussionAnswer = () => {
+    useEffect(() => {
+        sendRequest({ method: 'GET', url: 'http://localhost/api/discussionsAnswers' })
+            .then((responseData) => {
+                setAnswers(responseData)
+            })
+    }, [])
 
+    const handleDiscussionAnswer = (e) => {
+        e.preventDefault()
+        const body = {
+            text: answerText,
+            discussion_id: id,
+            user_id: sessionStorage.getItem('user_id')
+        }
+        sendRequest({ method: 'POST', url: 'http://localhost/api/discussionsAnswers', body })
+            .then((responseData) => {
+                setAnswers([responseData, ...answers])
+                setAnswerText('')
+            })
     }
 
     return (
@@ -95,28 +114,10 @@ const Discussion = () => {
                     </div>
                 </form>
 
-                <div className="row background-secondary rounded-lg-3 py-2 px-2 mt-3">
-                    <div className="col-12 px-lg-0 mb-3">
-                        <div className="row">
-                            <div className="col-12 col-lg-8">
-                                <span className="color-primary"><Link to={'/profile/'} className="fw-bold primary-link-color">someone</Link> published a answer</span>
-                            </div>
-                            {
-                                !verifyUser({ userId: discussion.user_id }) &&
-                                <div className="col-12 col-lg-4 text-lg-end">
-                                    <button className="btn btn-sm quaternary-logo-button-color"><i className="bi bi-hand-thumbs-up"></i></button>
-                                    <button className="ms-2 btn btn-sm primary-logo-button-color">Follow</button>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                    <div className="col-12 px-lg-0 mb-1">
-                        <span className="color-tertiary fs-6">{discussion.text}</span>
-                    </div>
-                    <div className="col-12 px-lg-0 mb-1">
-                        <span className="color-quaternary fs-10">{formatDate(discussion.created_at)}</span>
-                    </div>
-                </div>
+                {answers.map((item, index) => (
+                    <Answer key={index} data={item} />
+                ))}
+
 
                 <br />
             </main>
