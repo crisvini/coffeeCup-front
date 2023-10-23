@@ -31,9 +31,7 @@ const Discussion = () => {
             .then((responseData) => {
                 setDiscussion(responseData)
             })
-    }, [])
 
-    useEffect(() => {
         sendRequest({ method: 'GET', url: ('http://localhost/api/discussionsAnswers/filtered/' + id) })
             .then((responseData) => {
                 setAnswers(responseData)
@@ -76,7 +74,7 @@ const Discussion = () => {
                             </div>
                             {
                                 !verifyUser({ userId: discussion.user_id }) &&
-                                <div className="col-12 col-lg-4 text-lg-end">
+                                <div className="col-12 col-lg-4 text-lg-end my-2 my-lg-0">
                                     <button className="btn btn-sm quaternary-logo-button-color"><i className="bi bi-hand-thumbs-up"></i></button>
                                     <button className="ms-2 btn btn-sm primary-logo-button-color">Follow</button>
                                 </div>
