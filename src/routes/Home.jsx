@@ -16,12 +16,13 @@ const Home = () => {
     const [body, setBody] = useState("")
     const [userId, setUserId] = useState(sessionStorage.getItem('user_id'))
     const [discussions, setDiscussions] = useState([])
-    const [discussionsFilter, setDiscussionsFilter] = useState(1)
 
     const firstPage = 1
     const [currentPage, setCurrentPage] = useState(firstPage)
-    const [baseUrl, setBaseUrl] = useState('http://localhost/api/discussions')
-    const [urlWithPageParameter, setUrlWithPageParameter] = useState('http://localhost/api/discussions?page=' + firstPage)
+    const [discussionsFilter, setDiscussionsFilter] = useState(1)
+    const [postBaseUrl, setPostBaseUrl] = useState('http://localhost/api/discussions')
+    const [getBaseUrl, setGetBaseUrl] = useState('http://localhost/api/discussions/filtered/')
+    const [urlWithPageParameter, setUrlWithPageParameter] = useState(getBaseUrl + discussionsFilter + '?page=' + firstPage)
     const [lastPage, setLastPage] = useState('')
     const [totalDiscussions, setTotalDiscussions] = useState('')
 
@@ -41,18 +42,26 @@ const Home = () => {
         if (page > lastPage) page = lastPage
 
         setCurrentPage(page)
-        setUrlWithPageParameter(baseUrl + '?page=' + page)
+        setUrlWithPageParameter(getBaseUrl + discussionsFilter + '?page=' + page)
+    }
+
+    useEffect(() => {
+        setUrlWithPageParameter(getBaseUrl + discussionsFilter + '?page=' + currentPage);
+    }, [discussionsFilter, currentPage])
+
+    const handleDiscussionsFilter = (e) => {
+        setDiscussionsFilter(e.target.value);
+        setUrlWithPageParameter(getBaseUrl + discussionsFilter + '?page=' + currentPage)
     }
 
     const handleDiscussionSubmit = (e) => {
         e.preventDefault()
-
         const requestBody = {
             'user_id': userId,
             title,
             'text': body
         };
-        sendRequest({ method: 'POST', url: baseUrl, body: requestBody })
+        sendRequest({ method: 'POST', url: postBaseUrl, body: requestBody })
             .then((responseData) => {
                 if (!responseData) {
                     MySwal.fire({
@@ -67,8 +76,8 @@ const Home = () => {
                     })
                     return
                 }
-                setDiscussions([responseData, ...discussions])
-                setUrlWithPageParameter(baseUrl)
+                if (discussionsFilter == 1 || discussionsFilter == 3) setDiscussions([responseData, ...discussions])
+                setUrlWithPageParameter(getBaseUrl + discussionsFilter + '?page=1')
                 setTitle('')
                 setBody('')
                 MySwal.fire({
@@ -108,7 +117,7 @@ const Home = () => {
 
                 <div className="row mt-4 mt-lg-5">
                     <div className="col-12 col-lg-3 px-lg-0 ms-auto">
-                        <select className="form-select-sm w-100 rounded-3 background-secondary color-quaternary mb-2" defaultValue={discussionsFilter}>
+                        <select className="form-select-sm w-100 rounded-3 background-secondary color-quaternary mb-2" onChange={handleDiscussionsFilter} defaultValue={discussionsFilter}>
                             <option value="1">All discussions</option>
                             <option value="2">Followed users</option>
                             <option value="3">My discussions</option>
