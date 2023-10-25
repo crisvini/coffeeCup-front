@@ -3,7 +3,7 @@ import useFormatDate from "../hooks/useFormatDate"
 import useFormatEmail from "../hooks/useFormatEmail"
 import useVerifyUser from "../hooks/useVerifyUser"
 
-const Discussion = ({ data }) => {
+const Discussion = ({ data, nonLinkedProfile = null }) => {
     const { formatDate } = useFormatDate()
     const { formatEmail } = useFormatEmail()
     const { verifyUser } = useVerifyUser()
@@ -13,7 +13,15 @@ const Discussion = ({ data }) => {
             <div className="col-12 px-lg-0 mb-1">
                 <div className="row">
                     <div className="col-12 col-lg-8">
-                        <span className="color-primary"><Link to={'/profile/' + data.user_id} className="fw-bold primary-link-color">{formatEmail(data.user.email)}</Link> published a discussion</span>
+                        {nonLinkedProfile ?
+                            <span className="color-primary">
+                                {formatEmail(data.user.email)} published a discussion
+                            </span>
+                            :
+                            <span className="color-primary">
+                                <Link to={'/profile/' + data.user_id} className="fw-bold primary-link-color">{formatEmail(data.user.email)}</Link> published a discussion
+                            </span>
+                        }
                     </div>
                     {
                         !verifyUser({ userId: data.user_id }) &&
