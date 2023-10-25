@@ -37,7 +37,7 @@ const Header = () => {
                                 </button>
                                 <ul className="dropdown-menu dropdown-menu-end background-tertiary">
                                     <li>
-                                        <Link className="custom-dropdown-item current color-primary tertiary-logo-hover-color" to={'/profile/' + sessionStorage.getItem('user_id')}>Profile</Link>
+                                        <Link className="custom-dropdown-item current color-primary tertiary-logo-hover-color" to={'/profile/' + sessionStorage.getItem('user_id')}>My profile</Link>
                                     </li>
                                     <li>
                                         <Link className="custom-dropdown-item current color-primary tertiary-logo-hover-color" onClick={() => logout()}>Logout</Link>

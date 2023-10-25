@@ -76,8 +76,10 @@ const Home = () => {
                     })
                     return
                 }
-                if (discussionsFilter == 1 || discussionsFilter == 3) setDiscussions([responseData, ...discussions])
-                setUrlWithPageParameter(getBaseUrl + discussionsFilter + '?page=1')
+                setUrlWithPageParameter((prevUrl) => {
+                    const randomParam = Math.random()
+                    return `${prevUrl}&random=${randomParam}`
+                })
                 setTitle('')
                 setBody('')
                 MySwal.fire({
@@ -91,6 +93,13 @@ const Home = () => {
                     confirmButtonText: 'Ok'
                 })
             })
+    }
+
+    const handleDeleteDiscussion = () => {
+        setUrlWithPageParameter((prevUrl) => {
+            const randomParam = Math.random()
+            return `${prevUrl}&random=${randomParam}`
+        })
     }
 
     return (
@@ -125,7 +134,7 @@ const Home = () => {
                 </div>
 
                 {discussions.map((item, index) => (
-                    <Discussion key={index} data={item} />
+                    <Discussion key={index} data={item} onDeleteDiscussion={handleDeleteDiscussion} />
                 ))}
 
                 <div className="row mt-3">

@@ -92,7 +92,7 @@ const Profile = () => {
                 </div>
 
                 {discussions.map((item, index) => (
-                    <Discussion key={index} data={item} nonLinkedProfile="false" />
+                    <Discussion key={index} data={item} nonLinkedProfile='true' />
                 ))}
 
                 <div className="row mt-3">

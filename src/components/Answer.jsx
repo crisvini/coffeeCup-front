@@ -13,7 +13,7 @@ const Answer = ({ data }) => {
             <div className="col-12 px-lg-0 mb-3">
                 <div className="row">
                     <div className="col-12 col-lg-8">
-                        <span className="color-primary"><Link to={'/profile/'} className="fw-bold primary-link-color">{formatEmail(data.user.email)}</Link> published a answer</span>
+                        <span className="color-primary"><Link to={'/profile/' + data.user.id} className="fw-bold primary-link-color">{formatEmail(data.user.email)}</Link> published a answer</span>
                     </div>
                     {
                         !verifyUser({ userId: data.user_id }) &&
