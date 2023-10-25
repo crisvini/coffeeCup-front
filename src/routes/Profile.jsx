@@ -61,6 +61,13 @@ const Profile = () => {
         setUrlWithPageParameter(baseUrl + '?page=' + page)
     }
 
+    const handleDeleteDiscussion = () => {
+        setUrlWithPageParameter((prevUrl) => {
+            const randomParam = Math.random()
+            return `${prevUrl}&random=${randomParam}`
+        })
+    }
+
     return (
         <div className="background-quaternary">
             <PageTitle title={user.email ? formatEmail(user.email) : "Loading"} />
@@ -92,7 +99,7 @@ const Profile = () => {
                 </div>
 
                 {discussions.map((item, index) => (
-                    <Discussion key={index} data={item} nonLinkedProfile='true' />
+                    <Discussion key={index} data={item} nonLinkedProfile='true' onDeleteDiscussion={handleDeleteDiscussion} />
                 ))}
 
                 <div className="row mt-3">
