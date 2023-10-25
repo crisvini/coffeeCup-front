@@ -22,12 +22,12 @@ const Header = () => {
                 </button>
 
                 <div className="collapse navbar-collapse" id="navbar">
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                    {/* <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
                             <Link className='nav-link color-primary fs-6 tertiary-logo-hover-color py-0' to="/home">Discussions</Link>
                         </li>
-                    </ul>
-                    <span>
+                    </ul> */}
+                    <span className='ms-auto'>
                         <ul className="navbar-nav flex-row flex-wrap ms-md-auto back">
                             <li className="nav-item dropdown">
                                 <button type="button"
@@ -37,7 +37,7 @@ const Header = () => {
                                 </button>
                                 <ul className="dropdown-menu dropdown-menu-end background-tertiary">
                                     <li>
-                                        <Link className="custom-dropdown-item current color-primary tertiary-logo-hover-color" to="/profile">Profile</Link>
+                                        <Link className="custom-dropdown-item current color-primary tertiary-logo-hover-color" to={'/profile/' + sessionStorage.getItem('user_id')}>Profile</Link>
                                     </li>
                                     <li>
                                         <Link className="custom-dropdown-item current color-primary tertiary-logo-hover-color" onClick={() => logout()}>Logout</Link>

@@ -10,6 +10,7 @@ import Header from "../components/Header"
 import LoadingOverlay from "../components/LoadingOverlay"
 import PageTitle from "../components/PageTitle"
 import Answer from "../components/Answer"
+import Back from "../components/Back"
 
 const Discussion = () => {
     const { id } = useParams()
@@ -31,7 +32,7 @@ const Discussion = () => {
             .then((responseData) => {
                 setDiscussion(responseData)
             })
-
+            
         sendRequest({ method: 'GET', url: ('http://localhost/api/discussionsAnswers/filtered/' + id) })
             .then((responseData) => {
                 setAnswers(responseData)
@@ -54,15 +55,11 @@ const Discussion = () => {
 
     return (
         <div className="background-quaternary">
-            <PageTitle title='Home' />
+            <PageTitle title={'Discussion ' + discussion.id} />
             <Header />
 
             <main className="container h-100 mt-1">
-                <div className="row">
-                    <a onClick={() => navigate('/home')} className="tertiary-logo-hover-color ps-lg-0 w-auto">
-                        <i className="bi bi-arrow-left"></i>&nbsp;Back
-                    </a>
-                </div>
+                <Back route="/home"/>
                 <div className="row background-secondary rounded-lg-3 py-2 px-2 mt-2">
                     <div className="col-12 px-lg-0 mb-1">
                         <div className="row">

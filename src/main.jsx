@@ -11,6 +11,7 @@ import SignUp from './routes/SignUp.jsx'
 import Home from './routes/Home.jsx'
 import Discussion from './routes/Discussion.jsx'
 import EmailVerification from './routes/EmailVerification.jsx'
+import Profile from './routes/Profile.jsx'
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "discussion/:id",
         element: <Discussion />
+      },
+      {
+        path: "profile/:id",
+        element: <Profile />
       }
     ]
   }
