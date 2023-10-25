@@ -91,7 +91,6 @@ const Home = () => {
                     confirmButtonText: 'Ok'
                 })
             })
-
     }
 
     return (
