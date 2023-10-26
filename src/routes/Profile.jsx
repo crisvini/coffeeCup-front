@@ -5,6 +5,7 @@ import useHttpRequest from "../hooks/useHttpRequest"
 import useFormatDate from "../hooks/useFormatDate"
 import useFormatEmail from "../hooks/useFormatEmail"
 import useVerifyUser from "../hooks/useVerifyUser"
+import usePageChange from "../hooks/usePageChange"
 
 import PageTitle from "../components/PageTitle"
 import LoadingOverlay from '../components/LoadingOverlay'
@@ -20,9 +21,7 @@ const Profile = () => {
     const [discussions, setDiscussions] = useState([])
 
     const firstPage = 1
-    const [currentPage, setCurrentPage] = useState(firstPage)
-    const [baseUrl, setBaseUrl] = useState('http://localhost/api/discussions/filtered-by-user/' + id)
-    const [urlWithPageParameter, setUrlWithPageParameter] = useState(baseUrl + '?page=' + firstPage)
+    const [baseUrl, setBaseUrl] = useState(`http://localhost/api/discussions/filtered-by-user/${id}`)
     const [lastPage, setLastPage] = useState('')
     const [totalDiscussions, setTotalDiscussions] = useState('')
 
@@ -30,6 +29,7 @@ const Profile = () => {
     const { formatDate } = useFormatDate()
     const { formatEmail } = useFormatEmail()
     const { verifyUser } = useVerifyUser()
+    const { currentPage, urlWithPageParameter, setUrlWithPageParameter, handlePageChange } = usePageChange({ initialPage: firstPage, initialUrl: `${baseUrl}?page=${firstPage}`, lastPage, baseUrl })
 
     useEffect(() => {
         sendRequest({ method: 'GET', url: ('http://localhost/api/users/' + id) })
@@ -53,14 +53,6 @@ const Profile = () => {
             })
 
     }, [urlWithPageParameter])
-
-    const handlePageChange = (page) => {
-        if (page < firstPage) page = 1
-        if (page > lastPage) page = lastPage
-
-        setCurrentPage(page)
-        setUrlWithPageParameter(baseUrl + '?page=' + page)
-    }
 
     const handleDeleteDiscussion = () => {
         setUrlWithPageParameter((prevUrl) => {

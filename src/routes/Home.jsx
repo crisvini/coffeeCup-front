@@ -3,6 +3,7 @@ import withReactContent from "sweetalert2-react-content"
 import { useState, useEffect } from "react"
 
 import useHttpRequest from '../hooks/useHttpRequest'
+import usePageChange from "../hooks/usePageChange"
 
 import PageTitle from "../components/PageTitle"
 import LoadingOverlay from '../components/LoadingOverlay'
@@ -19,15 +20,21 @@ const Home = () => {
     const [discussions, setDiscussions] = useState([])
 
     const firstPage = 1
-    const [currentPage, setCurrentPage] = useState(firstPage)
     const [discussionsFilter, setDiscussionsFilter] = useState(1)
     const [postBaseUrl, setPostBaseUrl] = useState('http://localhost/api/discussions')
     const [getBaseUrl, setGetBaseUrl] = useState('http://localhost/api/discussions/filtered/')
-    const [urlWithPageParameter, setUrlWithPageParameter] = useState(getBaseUrl + discussionsFilter + '?page=' + firstPage)
     const [lastPage, setLastPage] = useState('')
     const [totalDiscussions, setTotalDiscussions] = useState('')
 
     const { loading, sendRequest } = useHttpRequest()
+    const { currentPage, urlWithPageParameter, setUrlWithPageParameter, handlePageChange } =
+        usePageChange({
+            initialPage: firstPage,
+            initialUrl: `${getBaseUrl}${discussionsFilter}?page=${firstPage}`,
+            lastPage,
+            baseUrl: getBaseUrl,
+            filter: discussionsFilter
+        })
 
     useEffect(() => {
         sendRequest({ method: 'GET', url: urlWithPageParameter })
@@ -37,14 +44,6 @@ const Home = () => {
                 setDiscussions(responseData.data)
             })
     }, [urlWithPageParameter])
-
-    const handlePageChange = (page) => {
-        if (page < firstPage) page = 1
-        if (page > lastPage) page = lastPage
-
-        setCurrentPage(page)
-        setUrlWithPageParameter(getBaseUrl + discussionsFilter + '?page=' + page)
-    }
 
     useEffect(() => {
         setUrlWithPageParameter(getBaseUrl + discussionsFilter + '?page=' + currentPage);
