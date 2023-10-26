@@ -65,43 +65,45 @@ const Profile = () => {
         <div className="background-quaternary">
             <PageTitle title={user.email ? formatEmail(user.email) : "Loading"} />
             {totalDiscussions &&
-                <Header />
-            }
-
-            {totalDiscussions &&
-                <main className="container h-100 mt-1">
-                    <Back route='/home' text='Home' />
-                    <div className="row background-secondary rounded-lg-3 py-2 px-2 mt-2 mb-4">
-                        <div className="col-12 col-lg-8 px-lg-0">
-                            <h1 className="additional-logo-color mb-0">{user.name ? user.name : ''}</h1>
-                            <span className="logo-color">{user.email ? ('@' + formatEmail(user.email)) : ''}</span>
-                        </div>
-                        <div className="col-12 col-lg-4 px-lg-0 text-lg-end">
-                            <div className="row">
-                                <div className="col-12">
-                                    <span className="color-quaternary fs-10">{user.created_at ? ('member since ' + formatDate(user.created_at, true)) : ''}</span>
-                                </div>
-                                <div className="col-12">
-                                    <span className="color-quaternary fs-10">{user.interactions ? (user.interactions + ' interactions') : ''}</span>
+                <>
+                    <Header />
+                    <main className="container h-100 mt-1">
+                        <Back route='/home' text='Home' />
+                        <div className="row background-secondary rounded-lg-3 py-2 px-2 mt-2 mb-4">
+                            <div className="col-12 col-lg-8 px-lg-0">
+                                <h1 className="additional-logo-color mb-0">{user.name ? user.name : ''}</h1>
+                                <span className="logo-color">{user.email ? ('@' + formatEmail(user.email)) : ''}</span>
+                            </div>
+                            <div className="col-12 col-lg-4 px-lg-0 text-lg-end">
+                                <div className="row">
+                                    <div className="col-12">
+                                        <span className="color-quaternary fs-10">{user.created_at ? ('member since ' + formatDate(user.created_at, true)) : ''}</span>
+                                    </div>
+                                    <div className="col-12">
+                                        <span className="color-quaternary fs-10">{user.interactions ? (user.interactions + ' interactions') : ''}</span>
+                                    </div>
+                                    <div className="col-12">
+                                        <span className="color-quaternary fs-10">{user.interactions ? (user.interactions + ' followers') : ''}</span>
+                                    </div>
                                 </div>
                             </div>
+                            {
+                                !verifyUser({ userId: id }) &&
+                                <div className="col-12 col-lg-2 px-lg-0 text-lg-start mt-3">
+                                    <button className="btn btn-sm primary-logo-button-color w-100">Follow</button>
+                                </div>
+                            }
                         </div>
-                        {
-                            !verifyUser({ userId: id }) &&
-                            <div className="col-12 col-lg-2 px-lg-0 text-lg-start mt-3">
-                                <button className="btn btn-sm primary-logo-button-color w-100">Follow</button>
-                            </div>
-                        }
-                    </div>
 
-                    {discussions.map((item, index) => (
-                        <Discussion key={index} data={item} nonLinkedProfile='true' onDeleteDiscussion={handleDeleteDiscussion} />
-                    ))}
+                        {discussions.map((item, index) => (
+                            <Discussion key={index} data={item} nonLinkedProfile='true' onDeleteDiscussion={handleDeleteDiscussion} />
+                        ))}
 
-                    <Pagination currentPage={currentPage} lastPage={lastPage} totalDiscussions={totalDiscussions} onPageChange={handlePageChange} />
+                        <Pagination currentPage={currentPage} lastPage={lastPage} totalDiscussions={totalDiscussions} onPageChange={handlePageChange} />
 
-                    <br />
-                </main>
+                        <br />
+                    </main>
+                </>
             }
             <LoadingOverlay loading={loading} />
         </div>
