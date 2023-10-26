@@ -127,6 +127,7 @@ input[type=submit]:active {
 .primary-logo-button-color {
   background-color: var(--logoColor) !important;
   color: white !important;
+  border-radius: 0.5rem;
 }
 
 .primary-logo-button-color:hover {
@@ -138,6 +139,7 @@ input[type=submit]:active {
 .secondary-logo-button-color {
   background-color: var(--secondaryLogoColor) !important;
   color: white !important;
+  border-radius: 0.5rem;
 }
 
 .secondary-logo-button-color:hover {
@@ -149,6 +151,7 @@ input[type=submit]:active {
 .tertiary-logo-button-color {
   background-color: var(--tertiaryLogoColor) !important;
   color: white !important;
+  border-radius: 0.5rem;
 }
 
 .tertiary-logo-button-color:hover {
@@ -160,6 +163,7 @@ input[type=submit]:active {
 .quaternary-logo-button-color {
   background-color: var(--aditionalLogoColor) !important;
   color: white !important;
+  border-radius: 0.5rem;
 }
 
 .quaternary-logo-button-color:hover {
