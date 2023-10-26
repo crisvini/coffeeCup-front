@@ -9,8 +9,8 @@ const usePageChange = ({ initialPage, initialUrl, lastPage, baseUrl, filter = nu
         if (page > lastPage) page = lastPage
 
         setCurrentPage(page)
-        if (filter) setUrlWithPageParameter(`${baseUrl}?page=${page}`)
-        else setUrlWithPageParameter(`${baseUrl}${filter}?page=${page}`)
+        if (filter) setUrlWithPageParameter(`${baseUrl}${filter}?page=${page}`)
+        else setUrlWithPageParameter(`${baseUrl}?page=${page}`)
     }
 
     return { currentPage, urlWithPageParameter, setUrlWithPageParameter, handlePageChange }

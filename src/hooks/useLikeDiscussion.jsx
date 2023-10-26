@@ -12,7 +12,7 @@ const useLikeDiscussion = () => {
     }
 
     return {
-        handleDeleteDiscussionButton
+        handleLikeDiscussionButton
     }
 }
 

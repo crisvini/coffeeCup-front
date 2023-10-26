@@ -1,4 +1,4 @@
-import { useParams, useNavigate, Link } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 
 import useHttpRequest from "../hooks/useHttpRequest"
@@ -6,6 +6,7 @@ import useFormatDate from "../hooks/useFormatDate"
 import useFormatEmail from "../hooks/useFormatEmail"
 import useVerifyUser from "../hooks/useVerifyUser"
 import useDeleteDiscussion from "../hooks/useDeleteDiscussion"
+import useLikeDiscussion from "../hooks/useLikeDiscussion"
 
 import Header from "../components/Header"
 import LoadingOverlay from "../components/LoadingOverlay"
@@ -15,13 +16,12 @@ import Back from "../components/Back"
 
 const Discussion = () => {
     const { id } = useParams()
-    const url = 'http://localhost/api/discussions/' + id
+    const url = `http://localhost/api/discussions/${id}`
 
     const [discussion, setDiscussion] = useState([])
     const [answerText, setAnswerText] = useState([])
     const [answers, setAnswers] = useState([])
 
-    const navigate = useNavigate()
     const { loading, sendRequest } = useHttpRequest()
     const { formatDate } = useFormatDate()
     const { formatEmail } = useFormatEmail()
@@ -35,7 +35,7 @@ const Discussion = () => {
                 setDiscussion(responseData)
             })
 
-        sendRequest({ method: 'GET', url: ('http://localhost/api/discussionsAnswers/filtered/' + id) })
+        sendRequest({ method: 'GET', url: (`http://localhost/api/discussionsAnswers/filtered/${id}`) })
             .then((responseData) => {
                 setAnswers(responseData)
             })
@@ -52,6 +52,17 @@ const Discussion = () => {
             .then((responseData) => {
                 setAnswers([responseData, ...answers])
                 setAnswerText('')
+            })
+    }
+
+    const handleLikeDiscussionButton = ({ id }) => {
+        const body = {
+            user_id: sessionStorage.getItem('user_id'),
+            discussion_id: id
+        }
+        sendRequest({ method: 'POST', url: 'http://localhost/api/discussionsLikes', body })
+            .then((responseData) => {
+                console.log(responseData)
             })
     }
 
@@ -78,7 +89,7 @@ const Discussion = () => {
                                 {
                                     !verifyUser({ userId: discussion.user_id }) ?
                                         <div className="col-2 col-lg-1 text-lg-end ms-lg-auto">
-                                            <button className="btn btn-sm quaternary-logo-button-color"><i className="bi bi-hand-thumbs-up"></i></button>
+                                            <button className="btn btn-sm quaternary-logo-button-color" onClick={() => handleLikeDiscussionButton({ id })}><i className="bi bi-hand-thumbs-up"></i></button>
                                         </div>
                                         :
                                         <div className="col-2 col-lg-1 text-lg-end ms-lg-auto">
@@ -114,7 +125,6 @@ const Discussion = () => {
                     {answers.map((item, index) => (
                         <Answer key={index} data={item} />
                     ))}
-
 
                     <br />
                 </main>
