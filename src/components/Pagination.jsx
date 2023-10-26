@@ -9,10 +9,10 @@ const Pagination = ({ currentPage, lastPage, totalDiscussions, onPageChange }) =
                     <button className="btn btn-sm quaternary-logo-button-color" onClick={() => onPageChange(lastPage)}>Last&nbsp;<i className="bi bi-chevron-double-right"></i></button>
                 </div>
                 <div className="text-end">
-                    <span className="color-primary fs-10">Page {currentPage} of {lastPage}</span>
+                    <span className="color-primary fs-10">{lastPage ? `Page ${currentPage} of ${lastPage}` : `Loading..`}</span>
                 </div>
                 <div className="text-end">
-                    <span className="color-primary fs-10">Total of discussions: {totalDiscussions}</span>
+                    <span className="color-primary fs-10">{totalDiscussions ? `Total of discussions: ${totalDiscussions}` : `Loading..`}</span>
                 </div>
             </div>
         </div>
