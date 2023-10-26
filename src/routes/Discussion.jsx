@@ -94,7 +94,10 @@ const Discussion = () => {
                             <span className="color-tertiary fs-6">{discussion.text}</span>
                         </div>
                         <div className="col-12 px-lg-0 mb-1">
-                            <span className="color-quaternary fs-10">{formatDate(discussion.created_at)}</span>
+                            <div className="d-flex justify-content-between align-items-center">
+                                <span className="color-quaternary fs-10">{formatDate(discussion.created_at)}</span>
+                                <span className="color-quaternary fs-10">0 likes</span>
+                            </div>
                         </div>
                     </div>
 

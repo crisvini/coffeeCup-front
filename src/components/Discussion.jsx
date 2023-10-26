@@ -1,6 +1,3 @@
-import Swal from "sweetalert2"
-import withReactContent from "sweetalert2-react-content"
-
 import { Link } from "react-router-dom"
 import useFormatDate from "../hooks/useFormatDate"
 import useFormatEmail from "../hooks/useFormatEmail"
@@ -8,7 +5,6 @@ import useVerifyUser from "../hooks/useVerifyUser"
 import useDeleteDiscussion from "../hooks/useDeleteDiscussion"
 
 const Discussion = ({ data, nonLinkedProfile = null, onDeleteDiscussion }) => {
-    const MySwal = withReactContent(Swal)
 
     const { formatDate } = useFormatDate()
     const { formatEmail } = useFormatEmail()
@@ -30,15 +26,10 @@ const Discussion = ({ data, nonLinkedProfile = null, onDeleteDiscussion }) => {
                             </span>
                         }
                     </div>
-                    {
-                        !verifyUser({ userId: data.user_id }) ?
-                            <div className="col-2 col-lg-1 text-lg-end ms-lg-auto">
-                                <button className="btn btn-sm quaternary-logo-button-color"><i className="bi bi-hand-thumbs-up"></i></button>
-                            </div>
-                            :
-                            <div className="col-2 col-lg-1 text-lg-end ms-lg-auto">
-                                <button className="btn btn-sm btn-danger" onClick={() => handleDeleteDiscussionButton({ id: data.id, onDeleteDiscussion })}><i className="bi bi-trash"></i></button>
-                            </div>
+                    {verifyUser({ userId: data.user_id }) &&
+                        <div className="col-2 col-lg-1 text-lg-end ms-lg-auto">
+                            <button className="btn btn-sm btn-danger" onClick={() => handleDeleteDiscussionButton({ id: data.id, onDeleteDiscussion })}><i className="bi bi-trash"></i></button>
+                        </div>
                     }
 
                 </div>
@@ -50,7 +41,10 @@ const Discussion = ({ data, nonLinkedProfile = null, onDeleteDiscussion }) => {
                 <span className="color-tertiary fs-6">{data.text}</span>
             </div>
             <div className="col-12 px-lg-0 mb-1">
-                <span className="color-quaternary fs-10">{formatDate(data.created_at)}</span>
+                <div className="d-flex justify-content-between align-items-center">
+                    <span className="color-quaternary fs-10">{formatDate(data.created_at)}</span>
+                    <span className="color-quaternary fs-10">0 likes</span>
+                </div>
             </div>
         </div>
     )
