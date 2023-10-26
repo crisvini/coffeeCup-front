@@ -6,7 +6,6 @@ import useFormatDate from "../hooks/useFormatDate"
 import useFormatEmail from "../hooks/useFormatEmail"
 import useVerifyUser from "../hooks/useVerifyUser"
 import useDeleteDiscussion from "../hooks/useDeleteDiscussion"
-import useLikeDiscussion from "../hooks/useLikeDiscussion"
 
 import Header from "../components/Header"
 import LoadingOverlay from "../components/LoadingOverlay"
@@ -21,6 +20,8 @@ const Discussion = () => {
     const [discussion, setDiscussion] = useState([])
     const [answerText, setAnswerText] = useState([])
     const [answers, setAnswers] = useState([])
+    const [likedDiscussion, setLikedDiscussion] = useState(false)
+    const [likeButtonIcon, setLikeButtonIcon] = useState('')
 
     const { loading, sendRequest } = useHttpRequest()
     const { formatDate } = useFormatDate()
@@ -55,15 +56,37 @@ const Discussion = () => {
             })
     }
 
-    const handleLikeDiscussionButton = ({ id }) => {
+    useEffect(() => {
+        sendRequest({ method: 'GET', url: `http://localhost/api/discussionsLikes/show-discussion-like/${id}` })
+            .then((responseData) => {
+                if (responseData) {
+                    setLikedDiscussion(true)
+                    setLikeButtonIcon('bi bi-hand-thumbs-up-fill')
+                } else {
+                    setLikedDiscussion(false)
+                    setLikeButtonIcon('bi bi-hand-thumbs-up')
+                }
+            })
+    }, [likedDiscussion])
+
+    const handleLikeDiscussionButton = () => {
         const body = {
             user_id: sessionStorage.getItem('user_id'),
             discussion_id: id
         }
-        sendRequest({ method: 'POST', url: 'http://localhost/api/discussionsLikes', body })
-            .then((responseData) => {
-                console.log(responseData)
-            })
+        if (!likedDiscussion) {
+            sendRequest({ method: 'POST', url: 'http://localhost/api/discussionsLikes', body })
+                .then((responseData) => {
+                    setLikedDiscussion(true)
+                    setLikeButtonIcon('bi bi-hand-thumbs-up-fill')
+                })
+        } else {
+            sendRequest({ method: 'DELETE', url: `http://localhost/api/discussionsLikes/${id}`, body })
+                .then((responseData) => {
+                    setLikedDiscussion(false)
+                    setLikeButtonIcon('bi bi-hand-thumbs-up')
+                })
+        }
     }
 
     return (
@@ -89,7 +112,7 @@ const Discussion = () => {
                                 {
                                     !verifyUser({ userId: discussion.user_id }) ?
                                         <div className="col-2 col-lg-1 text-lg-end ms-lg-auto">
-                                            <button className="btn btn-sm quaternary-logo-button-color" onClick={() => handleLikeDiscussionButton({ id })}><i className="bi bi-hand-thumbs-up"></i></button>
+                                            <button className="btn btn-sm quaternary-logo-button-color" onClick={() => handleLikeDiscussionButton({ id })}><i className={likeButtonIcon}></i></button>
                                         </div>
                                         :
                                         <div className="col-2 col-lg-1 text-lg-end ms-lg-auto">
