@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 import useFormatDate from "../hooks/useFormatDate"
 import useFormatEmail from "../hooks/useFormatEmail"
 import useVerifyUser from "../hooks/useVerifyUser"
-import useHttpRequest from '../hooks/useHttpRequest'
+import useDeleteDiscussion from "../hooks/useDeleteDiscussion"
 
 const Discussion = ({ data, nonLinkedProfile = null, onDeleteDiscussion }) => {
     const MySwal = withReactContent(Swal)
@@ -13,31 +13,7 @@ const Discussion = ({ data, nonLinkedProfile = null, onDeleteDiscussion }) => {
     const { formatDate } = useFormatDate()
     const { formatEmail } = useFormatEmail()
     const { verifyUser } = useVerifyUser()
-    const { loading, sendRequest } = useHttpRequest()
-
-    const handleDeleteDiscussionButton = ({ id }) => {
-        Swal.fire({
-            title: 'Wait!',
-            text: ('Are you shure you want to delete discussion ' + id + '?'),
-            icon: 'warning',
-            buttonsStyling: false,
-            confirmButtonText: 'Ok',
-            showDenyButton: true,
-            confirmButtonText: 'Yes',
-            denyButtonText: 'No',
-            customClass: {
-                confirmButton: 'btn quaternary-logo-button-color me-2',
-                denyButton: 'btn primary-logo-button-color'
-            },
-        }).then((result) => {
-            if (result.isConfirmed) {
-                sendRequest({ method: 'DELETE', url: ('http://localhost/api/discussions/' + id) })
-                    .then((responseData) => {
-                        onDeleteDiscussion()
-                    })
-            }
-        })
-    }
+    const { handleDeleteDiscussionButton } = useDeleteDiscussion()
 
     return (
         <div className="row background-secondary mt-3 rounded-lg-3 py-2 px-2">
@@ -61,7 +37,7 @@ const Discussion = ({ data, nonLinkedProfile = null, onDeleteDiscussion }) => {
                             </div>
                             :
                             <div className="col-2 col-lg-1 text-lg-end ms-lg-auto">
-                                <button className="btn btn-sm btn-danger" onClick={() => handleDeleteDiscussionButton({ id: data.id })}><i className="bi bi-trash"></i></button>
+                                <button className="btn btn-sm btn-danger" onClick={() => handleDeleteDiscussionButton({ id: data.id, onDeleteDiscussion })}><i className="bi bi-trash"></i></button>
                             </div>
                     }
 

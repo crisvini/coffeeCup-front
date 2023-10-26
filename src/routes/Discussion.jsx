@@ -5,6 +5,7 @@ import useHttpRequest from "../hooks/useHttpRequest"
 import useFormatDate from "../hooks/useFormatDate"
 import useFormatEmail from "../hooks/useFormatEmail"
 import useVerifyUser from "../hooks/useVerifyUser"
+import useDeleteDiscussion from "../hooks/useDeleteDiscussion"
 
 import Header from "../components/Header"
 import LoadingOverlay from "../components/LoadingOverlay"
@@ -24,6 +25,7 @@ const Discussion = () => {
     const { loading, sendRequest } = useHttpRequest()
     const { formatDate } = useFormatDate()
     const { formatEmail } = useFormatEmail()
+    const { handleDeleteDiscussionButton } = useDeleteDiscussion()
 
     const { verifyUser } = useVerifyUser()
 
@@ -80,7 +82,7 @@ const Discussion = () => {
                                         </div>
                                         :
                                         <div className="col-2 col-lg-1 text-lg-end ms-lg-auto">
-                                            <button className="btn btn-sm btn-danger" onClick={() => handleDeleteDiscussionButton({ id: data.id })}><i className="bi bi-trash"></i></button>
+                                            <button className="btn btn-sm btn-danger" onClick={() => handleDeleteDiscussionButton({ id })}><i className="bi bi-trash"></i></button>
                                         </div>
                                 }
                             </div>
