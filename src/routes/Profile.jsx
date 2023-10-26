@@ -39,7 +39,7 @@ const Profile = () => {
                 setUser(responseData)
                 changeUrl()
             })
-    }, [id])
+    }, [id, followedUser])
 
     const changeUrl = () => {
         setBaseUrl('http://localhost/api/discussions/filtered-by-user/' + id)
@@ -117,14 +117,14 @@ const Profile = () => {
                                 <span className="color-quaternary fs-10">{user.interactions >= 0 ? (user.interactions + ' interactions') : 'Loading..'}</span>
                             </div>
                             <div className="col-12">
-                                <span className="color-quaternary fs-10">{user.interactions >= 0 ? (user.interactions + ' followers') : 'Loading..'}</span>
+                                <span className="color-quaternary fs-10">{user.interactions >= 0 ? (user.followers_count + ' followers') : 'Loading..'}</span>
                             </div>
                         </div>
                     </div>
                     {
                         !verifyUser({ userId: id }) &&
                         <div className="col-12 col-lg-2 px-lg-0 text-lg-start mt-3">
-                            <button className="btn btn-sm primary-logo-button-color w-100" onClick={() => handleFollowButton()}>{followButtonText}</button>
+                            <button className="btn btn-sm primary-logo-button-color w-100" onClick={() => handleFollowButton()}>{followButtonText ? followButtonText : 'Loading..'}</button>
                         </div>
                     }
                 </div>
