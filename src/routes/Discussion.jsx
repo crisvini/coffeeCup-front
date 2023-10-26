@@ -32,7 +32,7 @@ const Discussion = () => {
             .then((responseData) => {
                 setDiscussion(responseData)
             })
-            
+
         sendRequest({ method: 'GET', url: ('http://localhost/api/discussionsAnswers/filtered/' + id) })
             .then((responseData) => {
                 setAnswers(responseData)
@@ -59,22 +59,25 @@ const Discussion = () => {
             <Header />
 
             <main className="container h-100 mt-1">
-                <Back route="/home"/>
+                <Back route="/home" />
                 <div className="row background-secondary rounded-lg-3 py-2 px-2 mt-2">
                     <div className="col-12 px-lg-0 mb-1">
                         <div className="row">
-                            <div className="col-12 col-lg-8">
-                                <span className="color-primary">
+                            <div className="col-10 col-lg-8">
+                                <span className="color-primary fs-8">
                                     <Link to={'/profile/' + discussion.user_id} className="fw-bold primary-link-color">{discussion.user ? formatEmail(discussion.user.email) : "Loading"}</Link>
                                     &nbsp;published a discussion
                                 </span>
                             </div>
                             {
-                                !verifyUser({ userId: discussion.user_id }) &&
-                                <div className="col-12 col-lg-4 text-lg-end my-2 my-lg-0">
-                                    <button className="btn btn-sm quaternary-logo-button-color"><i className="bi bi-hand-thumbs-up"></i></button>
-                                    <button className="ms-2 btn btn-sm primary-logo-button-color">Follow</button>
-                                </div>
+                                !verifyUser({ userId: discussion.user_id }) ?
+                                    <div className="col-2 col-lg-1 text-lg-end ms-lg-auto">
+                                        <button className="btn btn-sm quaternary-logo-button-color"><i className="bi bi-hand-thumbs-up"></i></button>
+                                    </div>
+                                    :
+                                    <div className="col-2 col-lg-1 text-lg-end ms-lg-auto">
+                                        <button className="btn btn-sm btn-danger" onClick={() => handleDeleteDiscussionButton({ id: data.id })}><i className="bi bi-trash"></i></button>
+                                    </div>
                             }
                         </div>
                     </div>

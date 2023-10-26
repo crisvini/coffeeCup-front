@@ -45,11 +45,11 @@ const Discussion = ({ data, nonLinkedProfile = null, onDeleteDiscussion }) => {
                 <div className="row">
                     <div className="col-10 col-lg-8">
                         {nonLinkedProfile ?
-                            <span className="color-primary">
+                            <span className="color-primary fs-8">
                                 {formatEmail(data.user.email)} published a discussion
                             </span>
                             :
-                            <span className="color-primary">
+                            <span className="color-primary fs-8">
                                 <Link to={'/profile/' + data.user_id} className="fw-bold primary-link-color">{formatEmail(data.user.email)}</Link> published a discussion
                             </span>
                         }

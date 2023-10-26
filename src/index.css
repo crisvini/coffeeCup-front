@@ -279,6 +279,10 @@ input[type=submit]:active {
   color: var(--tertiaryLogoColor);
 }
 
+.fs-8 {
+  font-size: 0.8rem !important;
+}
+
 .fs-10 {
   font-size: 0.7rem !important;
 }
