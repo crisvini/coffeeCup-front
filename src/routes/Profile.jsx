@@ -24,6 +24,8 @@ const Profile = () => {
     const [baseUrl, setBaseUrl] = useState(`http://localhost/api/discussions/filtered-by-user/${id}`)
     const [lastPage, setLastPage] = useState('')
     const [totalDiscussions, setTotalDiscussions] = useState('')
+    const [followedUser, setFollowedUser] = useState(false)
+    const [followButtonText, setFollowButtonText] = useState('')
 
     const { loading, sendRequest } = useHttpRequest()
     const { formatDate } = useFormatDate()
@@ -61,6 +63,39 @@ const Profile = () => {
         })
     }
 
+    useEffect(() => {
+        sendRequest({ method: 'GET', url: `http://localhost/api/followedUsers/show-followed-user/${id}` })
+            .then((responseData) => {
+                if (responseData) {
+                    setFollowedUser(true)
+                    setFollowButtonText('Unfollow')
+                } else {
+                    setFollowedUser(false)
+                    setFollowButtonText('Follow')
+                }
+            })
+    }, [followedUser])
+
+    const handleFollowButton = () => {
+        const body = {
+            user_id: sessionStorage.getItem('user_id'),
+            followed_user_id: id
+        }
+        if (!followedUser) {
+            sendRequest({ method: 'POST', url: `http://localhost/api/followedUsers`, body })
+                .then((responseData) => {
+                    setFollowedUser(true)
+                    setFollowButtonText('Unfollow')
+                })
+        } else {
+            sendRequest({ method: 'DELETE', url: `http://localhost/api/followedUsers/${id}`, body })
+                .then((responseData) => {
+                    setFollowedUser(false)
+                    setFollowButtonText('Follow')
+                })
+        }
+    }
+
     return (
         <div className="background-quaternary">
             <PageTitle title={user.email ? formatEmail(user.email) : "Loading"} />
@@ -90,7 +125,7 @@ const Profile = () => {
                             {
                                 !verifyUser({ userId: id }) &&
                                 <div className="col-12 col-lg-2 px-lg-0 text-lg-start mt-3">
-                                    <button className="btn btn-sm primary-logo-button-color w-100">Follow</button>
+                                    <button className="btn btn-sm primary-logo-button-color w-100" onClick={() => handleFollowButton()}>{followButtonText}</button>
                                 </div>
                             }
                         </div>
