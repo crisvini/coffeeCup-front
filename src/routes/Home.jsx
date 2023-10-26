@@ -105,42 +105,47 @@ const Home = () => {
     return (
         <div className="background-quaternary">
             <PageTitle title='Home' />
-            <Header />
+            {totalDiscussions &&
+                <Header />
+            }
 
-            <main className="container h-100 mt-3">
-                <form className="row background-secondary rounded-lg-3 py-2 px-2" onSubmit={handleDiscussionSubmit}>
-                    <div className="col-12 px-lg-0 mb-3">
-                        <span className="color-primary ps-lg-0 mb-2">Why not start a new discussion?</span>
+            {totalDiscussions &&
+                <main className="container h-100 mt-3">
+                    <form className="row background-secondary rounded-lg-3 py-2 px-2" onSubmit={handleDiscussionSubmit}>
+                        <div className="col-12 px-lg-0 mb-3">
+                            <span className="color-primary ps-lg-0 mb-2">Why not start a new discussion?</span>
+                        </div>
+                        <div className="col-12 px-lg-0">
+                            <input required type="text" className="form-control background-secondary color-quaternary mb-2" id="title"
+                                placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)}></input>
+                            <textarea className="form-control rounded-3 background-secondary color-quaternary mb-2"
+                                placeholder="Body" value={body} required onChange={(e) => setBody(e.target.value)}></textarea>
+                        </div>
+                        <div className="ms-auto col-12 col-lg-2 px-lg-0">
+                            <input className="form-control btn btn-sm primary-logo-button-color" type="submit" value='Send' />
+                        </div>
+                    </form>
+
+                    <div className="row mt-4 mt-lg-5">
+                        <div className="col-12 col-lg-3 px-lg-0 ms-auto">
+                            <select className="form-select-sm w-100 rounded-3 background-secondary color-quaternary mb-2" onChange={handleDiscussionsFilter} defaultValue={discussionsFilter}>
+                                <option value="1">All discussions</option>
+                                <option value="2">Followed users</option>
+                                <option value="3">My discussions</option>
+                            </select>
+                        </div>
                     </div>
-                    <div className="col-12 px-lg-0">
-                        <input required type="text" className="form-control background-secondary color-quaternary mb-2" id="title"
-                            placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)}></input>
-                        <textarea className="form-control rounded-3 background-secondary color-quaternary mb-2"
-                            placeholder="Body" value={body} required onChange={(e) => setBody(e.target.value)}></textarea>
-                    </div>
-                    <div className="ms-auto col-12 col-lg-2 px-lg-0">
-                        <input className="form-control btn btn-sm primary-logo-button-color" type="submit" value='Send' />
-                    </div>
-                </form>
 
-                <div className="row mt-4 mt-lg-5">
-                    <div className="col-12 col-lg-3 px-lg-0 ms-auto">
-                        <select className="form-select-sm w-100 rounded-3 background-secondary color-quaternary mb-2" onChange={handleDiscussionsFilter} defaultValue={discussionsFilter}>
-                            <option value="1">All discussions</option>
-                            <option value="2">Followed users</option>
-                            <option value="3">My discussions</option>
-                        </select>
-                    </div>
-                </div>
+                    {discussions.map((item, index) => (
+                        <Discussion key={index} data={item} onDeleteDiscussion={handleDeleteDiscussion} />
+                    ))}
 
-                {discussions.map((item, index) => (
-                    <Discussion key={index} data={item} onDeleteDiscussion={handleDeleteDiscussion} />
-                ))}
+                    <Pagination currentPage={currentPage} lastPage={lastPage} totalDiscussions={totalDiscussions} onPageChange={handlePageChange} />
 
-                <Pagination currentPage={currentPage} lastPage={lastPage} totalDiscussions={totalDiscussions} onPageChange={handlePageChange} />
+                    <br />
+                </main>
+            }
 
-                <br />
-            </main>
             <LoadingOverlay loading={loading} />
         </div >
     )
