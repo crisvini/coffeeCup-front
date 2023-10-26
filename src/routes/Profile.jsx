@@ -11,6 +11,7 @@ import LoadingOverlay from '../components/LoadingOverlay'
 import Header from "../components/Header"
 import Back from "../components/Back"
 import Discussion from "../components/Discussion"
+import Pagination from "../components/Pagination"
 
 const Profile = () => {
     const { id } = useParams()
@@ -102,22 +103,7 @@ const Profile = () => {
                     <Discussion key={index} data={item} nonLinkedProfile='true' onDeleteDiscussion={handleDeleteDiscussion} />
                 ))}
 
-                <div className="row mt-3">
-                    <div className="ms-auto col-12 col-lg-4 px-lg-0 text-center text-lg-end">
-                        <div className="btn-group w-100">
-                            <button className="btn btn-sm quaternary-logo-button-color" onClick={() => handlePageChange(1)}><i className="bi bi-chevron-double-left"></i>&nbsp;First</button>
-                            <button className="btn btn-sm primary-logo-button-color" onClick={() => handlePageChange(currentPage - 1)}><i className="bi bi-chevron-left"></i>&nbsp;Previous</button>
-                            <button className="btn btn-sm primary-logo-button-color" onClick={() => handlePageChange(currentPage + 1)}>Next&nbsp;<i className="bi bi-chevron-right"></i></button>
-                            <button className="btn btn-sm quaternary-logo-button-color" onClick={() => handlePageChange(lastPage)}>Last&nbsp;<i className="bi bi-chevron-double-right"></i></button>
-                        </div>
-                        <div className="text-end">
-                            <span className="color-primary fs-10">Page {currentPage} of {lastPage}</span>
-                        </div>
-                        <div className="text-end">
-                            <span className="color-primary fs-10">Total of discussions: {totalDiscussions}</span>
-                        </div>
-                    </div>
-                </div>
+                <Pagination currentPage={currentPage} lastPage={lastPage} totalDiscussions={totalDiscussions} onPageChange={handlePageChange} />
 
                 <br />
             </main>
