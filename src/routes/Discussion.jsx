@@ -40,7 +40,7 @@ const Discussion = () => {
             .then((responseData) => {
                 setAnswers(responseData)
             })
-    }, [])
+    }, [likedDiscussion])
 
     const handleDiscussionAnswer = (e) => {
         e.preventDefault()
@@ -130,7 +130,7 @@ const Discussion = () => {
                         <div className="col-12 px-lg-0 mb-1">
                             <div className="d-flex justify-content-between align-items-center">
                                 <span className="color-quaternary fs-10">{formatDate(discussion.created_at)}</span>
-                                <span className="color-quaternary fs-10">0 likes</span>
+                                <span className="color-quaternary fs-10">{discussion.discussions_likes_count} likes</span>
                             </div>
                         </div>
                     </div>
