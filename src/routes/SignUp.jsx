@@ -67,27 +67,21 @@ const SignUp = () => {
             <main className="container h-100 m-0 mw-100">
                 <div className="row h-100">
                     <div className="col-12 col-lg-6 d-flex justify-content-center align-items-center background-quaternary">
-                        <div className="row">
-                            <BackLink link='/' swalText='Do you really want to get back? You will lost unsaved data' linkText='Login' warning={false} />
-                            <div className="col-11 col-lg-8 mx-auto text-left fs-4 color-primary mt-lg-4 mt-2 w-100">
+                        <div className="row w-100">
+                            <div className="col-12 col-lg-8 mx-auto">
+                                <BackLink link='/' swalText='Do you really want to get back? You will lost unsaved data' linkText='Login' warning={false} />
+                            </div>
+                            <div className="col-12 col-lg-8 mx-auto text-left fs-4 color-primary mt-lg-4 mt-2">
                                 <span>Sign up</span>
                             </div>
-                            <form onSubmit={handlePostRequest}>
-                                <div className="col-11 col-lg-8 mx-auto mt-3 w-100">
-                                    <input required type="text" className="form-control background-secondary color-quaternary" id="name"
-                                        placeholder="Name" value={name} onChange={(e) => setName(e.target.value)}></input>
-                                </div>
-                                <div className="col-11 col-lg-8 mx-auto mt-3 w-100">
-                                    <input required type="email" className="form-control background-secondary color-quaternary" id="email"
-                                        placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)}></input>
-                                </div>
-                                <div className="col-11 col-lg-8 mx-auto mt-3 w-100">
-                                    <input required type="password" className="form-control background-secondary color-quaternary" id="password"
-                                        placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
-                                </div>
-                                <div className="col-11 col-lg-8 mx-auto mt-3 w-100">
-                                    <input type="submit" className="btn primary-logo-button-color w-100" value="Sign up" />
-                                </div>
+                            <form onSubmit={handlePostRequest} className='col-12 col-lg-8 mx-auto'>
+                                <input required type="text" className="form-control background-secondary color-quaternary mt-3" id="name"
+                                    placeholder="Name" value={name} onChange={(e) => setName(e.target.value)}></input>
+                                <input required type="email" className="form-control background-secondary color-quaternary mt-3" id="email"
+                                    placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                                <input required type="password" className="form-control background-secondary color-quaternary mt-3" id="password"
+                                    placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                                <input type="submit" className="btn primary-logo-button-color w-100 mt-3" value="Sign up" />
                             </form>
                         </div>
                     </div>

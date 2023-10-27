@@ -87,21 +87,19 @@ const EmailVerification = () => {
                 <div className="row h-100">
                     <div className="col-12 col-lg-6 d-flex justify-content-center align-items-center background-quaternary">
                         <div className="row">
-                            <BackLink link='/signup' swalText='Do you really want to get back? You will lost unsaved data' linkText='Sign up' />
-                            <div className="col-11 col-lg-8 mx-auto text-left fs-4 color-primary mt-lg-4 mt-2 w-100">
+                            <div className="col-12 col-lg-8 mx-auto">
+                                <BackLink link='/signup' swalText='Do you really want to get back? You will lost unsaved data' linkText='Sign up' />
+                            </div>
+                            <div className="col-12 col-lg-8 mx-auto text-left fs-4 color-primary mt-lg-4 mt-2">
                                 <span>E-mail verification</span><br />
                                 <span className='fs-6'>We've send you a e-mail with a verification token</span>
                             </div>
-                            <form onSubmit={handleEmailVerification}>
-                                <div className="col-11 col-lg-8 mx-auto mt-3 w-100">
-                                    <input type="text" className="form-control background-secondary color-quaternary" id="token"
-                                        placeholder="Token" value={token} onChange={(e) => setToken(e.target.value)}></input>
-                                </div>
-                                <div className="col-11 col-lg-8 mx-auto mt-3 w-100">
-                                    <input type="submit" className="btn primary-logo-button-color w-100" value="Sign up" />
-                                </div>
+                            <form onSubmit={handleEmailVerification} className='col-12 col-lg-8 mx-auto'>
+                                <input type="text" className="form-control background-secondary color-quaternary mt-3" id="token"
+                                    placeholder="Token" value={token} onChange={(e) => setToken(e.target.value)}></input>
+                                <input type="submit" className="btn primary-logo-button-color w-100 mt-3" value="Sign up" />
                             </form>
-                            <div className="col-11 col-lg-8 mx-auto text-center mt-3">
+                            <div className="col-12 col-lg-8 mx-auto text-center mt-3">
                                 <Link onClick={handleTokenRessend} className="logo-link-color">Didn't received a token? ressend</Link>
                             </div>
                         </div>
