@@ -86,7 +86,7 @@ const EmailVerification = () => {
             <main className="container h-100 m-0 mw-100">
                 <div className="row h-100">
                     <div className="col-12 col-lg-6 d-flex justify-content-center align-items-center background-quaternary">
-                        <div className="row">
+                        <div className="row w-100">
                             <div className="col-12 col-lg-8 mx-auto">
                                 <BackLink link='/signup' swalText='Do you really want to get back? You will lost unsaved data' linkText='Sign up' />
                             </div>

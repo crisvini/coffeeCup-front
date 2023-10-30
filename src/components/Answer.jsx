@@ -15,13 +15,13 @@ const Answer = ({ data }) => {
                     <div className="col-12 col-lg-8">
                         <span className="color-primary"><Link to={'/profile/' + data.user.id} className="fw-bold primary-link-color">{formatEmail(data.user.email)}</Link> published a answer</span>
                     </div>
-                    {
+                    {/* {
                         !verifyUser({ userId: data.user_id }) &&
                         <div className="col-12 col-lg-4 text-lg-end my-2 my-lg-0">
                             <button className="btn btn-sm quaternary-logo-button-color"><i className="bi bi-hand-thumbs-up"></i></button>
                             <button className="ms-2 btn btn-sm primary-logo-button-color">Follow</button>
                         </div>
-                    }
+                    } */}
                 </div>
             </div>
             <div className="col-12 px-lg-0 mb-1">
